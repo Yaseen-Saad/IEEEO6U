@@ -1,0 +1,213 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IEEEO6U</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/home.css" />
+  </head>
+
+  <body>
+    <!-- nav -->
+    <section class="cont">
+      <nav>
+        <img src="./assets/images/logo.png" alt="" />
+        <ul>
+          <li class="active"><a href="">home</a></li>
+          <li><a href="./pages/events/evets.html">latest evenets</a></li>
+          <li><a href="./pages/about/">about us</a></li>
+          <li><a href="">our partners</a></li>
+          <li><a href="">reach us</a></li>
+        </ul>
+      </nav>
+    </section>
+    <!-- /nav -->
+    <!-- land Slider -->
+    <section class="owl-carousel owl-theme slider landing"></section>
+    <!-- /land Slider -->
+    <section class="cont our-events">
+      <article>
+        <h2>our up coming events</h2>
+        <p>what are you waiting for</p>
+        <span></span>
+      </article>
+      <article></article>
+    </section>
+    <!-- meet us -->
+    <section class="cont meet-us">
+      <article>
+        <h2>Meet our best members</h2>
+        <p>those are the best of the best</p>
+        <span></span>
+      </article>
+      <article class="owl-carousel owl-theme officers ="></article>
+    </section>
+    <!-- /meet us -->
+
+    <!-- Import the Firebase SDK modules -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/home.js"></script>
+
+    <script>
+      (async () => {
+        await db
+          .collection("best-members")
+          .get()
+          .then((querySnapshot) => {
+            const leaders = document.querySelector(
+              "body .meet-us > article:last-child"
+            );
+            querySnapshot.forEach((data) => {
+              const doc = data.data();
+              const head = document.createElement("article"),
+                headContacts = document.createElement("div"),
+                headImageCont = document.createElement("div"),
+                headName = document.createElement("p"),
+                headImage = document.createElement("img"),
+                headRole = document.createElement("span");
+              // facebook
+              const facebookIcon = document.createElement("a");
+              facebookIcon.href = doc.BestMemberFace;
+              const facebookIconContent = document.createElement("i");
+              facebookIconContent.classList.add("fa-brands", "fa-facebook");
+              facebookIcon.append(facebookIconContent);
+              headContacts.append(facebookIcon);
+
+              // linked in
+              const linkedInIcon = document.createElement("a");
+              linkedInIcon.href = doc.BestMemberLinked;
+              const linkedInIconContent = document.createElement("i");
+              linkedInIconContent.classList.add("fa-brands", "fa-linkedIn");
+              linkedInIcon.append(linkedInIconContent);
+              headContacts.append(linkedInIcon);
+
+              // phone number
+              let icon = document.createElement("a");
+              let iconContent = document.createElement("i");
+              iconContent.classList.add("fa-solid", "fa-phone");
+              icon.append(iconContent);
+              let text = document.createElement("input");
+              text.style.cssText =
+                "position:absolute;left:-43829px;top-432432px;";
+              text.value = doc.BestMemberPhone;
+              document.body.append(text);
+              //handling hoe the will user either copy the phone number or call him
+              icon.onclick = (e) => {
+                e.preventDefault();
+                //checking if the user's device supports making calls
+                if (
+                  navigator.userAgent.match(
+                    /(iPhone|iPod|iPad|Android|BlackBerry)/
+                  )
+                ) {
+                  // If so, make the call
+                  window.location.href = `tel:${text.value}`;
+                } else {
+                  // if the device doesn't support then coppy the number
+                  text.select();
+                  document.execCommand("copy");
+                  alert("Phone Number Copied");
+                }
+              };
+              headContacts.append(icon);
+              headImage.src = doc.BestMemberImage;
+              headName.textContent = doc.BestMemberName;
+              headRole.textContent = doc.BestMemberRole;
+
+              head.classList.add("card", "item");
+
+              headImageCont.append(headImage);
+              head.append(headImageCont, headName, headRole, headContacts);
+              leaders.append(head);
+            });
+
+            $(".officers").owlCarousel({
+              items: 3,
+              autoplay: true,
+              autoplayTimeout: 5000,
+              nav: true,
+              dots: false,
+              margin: 20,
+              autoplayHoverPause: true,
+              mouseDrag: true,
+              navText: [
+                '<i class="fa-solid fa-chevron-left"></i>',
+                '<i class="fa-solid fa-chevron-right"></i>',
+              ],
+              touchDrag: true,
+              responsive: {
+                0: {
+                  items: 1,
+                },
+                400: {
+                  items: 2,
+                },
+                600: {
+                  items: 3,
+                },
+                1000: {
+                  items: 5,
+                },
+              },
+            });
+          });
+      })();
+    </script>
+
+    <script>
+      // create element & render cafe
+      // function deleteing(doc) {
+      //   // deleting data
+      //   cross.addEventListener("click", (e) => {
+      //     e.stopPropagation();
+      //     let id = e.target.parentElement.getAttribute("data-id");
+      //     db.collection("cafes").doc(id).delete();
+      //   });
+      // }
+
+      // getting data
+      // db.collection('cafes').orderBy('city').get().then(snapshot => {
+      //     snapshot.docs.forEach(doc => {
+      //         renderCafe(doc);
+      //     });
+      // });
+
+      // saving data
+
+      // real-time listener
+      /*db.collection("cafes")
+        .orderBy("city")
+        .onSnapshot((snapshot) => {
+let changes = snapshot.docChanges();
+changes.forEach((change) => {
+  console.log(change.doc.data());
+  if (change.type == "added") {
+    renderCafe(change.doc);
+  } else if (change.type == "removed") {
+    let li = cafeList.querySelector(
+      "[data-id=" + change.doc.id + "]"
+    );
+    cafeList.removeChild(li);
+  }
+});
+        });*/
+    </script>
+  </body>
+</html>

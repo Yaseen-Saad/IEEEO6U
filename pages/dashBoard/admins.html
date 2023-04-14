@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="../../assets/css/adminsloading.css" />
+  </head>
+  <body>
+    <section id="loader">
+      <div class="word">LOADING...</div>
+      <div id="overlayier"></div>
+    </section>
+    <section class="right">
+      <div class="overview">
+        <article>
+          <i class="fa fa-eye"></i> <span id="visitors"></span>Total Visitors
+        </article>
+        <article>
+          <i class="fa fa-users"></i> <span>00999</span>total members
+        </article>
+        <article>
+          <i class="fa-solid fa-envelope"></i> <span>99900</span>total
+          registrations
+        </article>
+        <article><i class="fa fa-user"></i> <span>90909</span> sample</article>
+      </div>
+      <div class="addEvent">
+        <form id="events-form">
+          <h2>Add Event</h2>
+          <div><input type="text" placeholder="Event Name" /></div>
+          <div>
+            <textarea
+              placeholder="Event Description (You Can Use MD Language For Styling)"
+            ></textarea>
+          </div>
+
+          <div>
+            <input type="file" accept="image/*" hidden id="EVENTIMG" />
+            <label id="EVENTIMAGE" for="EVENTIMG">
+              <span> Event Image </span></label
+            >
+            <p id="choosenImageForTheEvent"></p>
+          </div>
+
+          <div>
+            <input
+              multiple
+              type="file"
+              accept="image/*"
+              hidden
+              id="EVENTIMGs"
+            />
+            <label id="EVENTIMAGEs" for="EVENTIMGs">
+              <span> Event Image(s) </span></label
+            >
+            <p id="choosenImagesForTheEvent"></p>
+          </div>
+
+          <div>
+            <input type="checkbox" id="registration" /><label for="registration"
+              >Registration</label
+            >
+          </div>
+          <input type="submit" id="submit" value="submit" />
+        </form>
+        <form id="officers-form">
+          <h2>Add officer</h2>
+          <div><input type="text" placeholder="officer's Name" /></div>
+          <div><input type="text" placeholder="officer's role" /></div>
+          <div>
+            <input type="file" accept="image/*" hidden id="officerImage" />
+            <label id="officerImageLabel" for="officerImage">
+              <span>officer's image </span></label
+            >
+            <p id="officerChoosenImage"></p>
+          </div>
+          <div><input type="text" placeholder="officer's facebook" /></div>
+          <div><input type="text" placeholder="officer's linkedIn" /></div>
+          <div><input type="text" placeholder="officer's phone" /></div>
+          <button>add officer</button>
+        </form>
+        <form id="partners-form">
+          <h2>Add Partner</h2>
+          <div><input type="text" placeholder="partner's Name" /></div>
+          <div>
+            <input type="file" accept="image/*" hidden id="partnerImage" />
+            <label id="partnerImageLabel" for="partnerImage">
+              <span>partner's image </span></label
+            >
+            <p id="partnerChoosenImage"></p>
+          </div>
+          <button>add partner</button>
+        </form>
+        <form id="best-members-form">
+          <h2>Add Best Member</h2>
+          <div><input type="text" placeholder="Member's Name" /></div>
+          <div><input type="text" placeholder="Member's committee" /></div>
+          <div>
+            <input type="file" accept="image/*" hidden id="MemberImage" />
+            <label id="MemberImageLabel" for="MemberImage">
+              <span>Member's image </span></label
+            >
+            <p id="MemberChoosenImage"></p>
+          </div>
+          <div><input type="text" placeholder="Member's facebook" /></div>
+          <div><input type="text" placeholder="Member's linkedIn" /></div>
+          <div><input type="text" placeholder="Member's phone" /></div>
+          <button>add Member</button>
+        </form>
+      </div>
+    </section>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="../../govs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.6.1/jquery.lettering.min.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
