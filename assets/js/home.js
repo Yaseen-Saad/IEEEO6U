@@ -27,7 +27,7 @@
         EventDesc.innerHTML = limitWords(event.eventDescription, 200);
 
         const toEventButton = document.createElement("a");
-        toEventButton.href = `./pages/events/event/index.html?doc=${doc.id}`;
+        toEventButton.href = `./pages/events/event/?doc=${doc.id}`;
         toEventButton.textContent = "Learn More";
         toEventButton.className = "button";
 
@@ -81,7 +81,7 @@
 
         const EventButton = document.createElement("a");
         EventButton.textContent = "register";
-        EventButton.href = `../../pages/regestier/index.html?doc=${doc.id}`;
+        EventButton.href = `./pages/register/?doc=${doc.id}`;
         EventButton.className = "button";
 
         const EventDiv = document.createElement("div");

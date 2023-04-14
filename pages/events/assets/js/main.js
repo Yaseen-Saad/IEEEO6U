@@ -18,9 +18,9 @@ collectionRef.get().then((querySnapshot) => {
     console.log(!event.neededData[0]);
     console.log(event);
     if (event.neededData[0]) {
-      eventArticle.href = "../regestier/index.html" + `?doc=${doc.id}`;
+      eventArticle.href = `../register/?doc=${doc.id}`;
     } else {
-      eventArticle.href = "./event/index.html" + `?doc=${doc.id}`;
+      eventArticle.href = `./event/?doc=${doc.id}`;
     }
 
     eventData.append(eventName, eventDescription);
