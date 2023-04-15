@@ -9,7 +9,14 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-let db = firebase.firestore();
+const db = firebase.firestore();
+const navList = document.querySelector("#NavID");
+const activities = document.querySelector("#activities");
+navList.onclick = (e) => {
+  e.preventDefault();
+  activities.classList.toggle("active");
+  navList.children[0].classList.toggle("active");
+};
 
 async function view() {
   db.collection("dashBoard")
