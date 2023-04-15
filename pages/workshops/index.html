@@ -3,15 +3,20 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
+    <title>IEEEO6U</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
     />
     <link rel="stylesheet" href="../../assets/css/main.css" />
-    <link rel="stylesheet" href="./assets/style.css" />
+    <link rel="stylesheet" href="../../assets/css/events.css" />
   </head>
   <body>
+    <!-- nav -->
     <section class="cont">
       <nav>
         <img src="../../assets/images/logo.png" alt="" />
@@ -19,12 +24,12 @@
           <li><a href="../../">home</a></li>
           <li><a href="../about/">about us</a></li>
           <li class="active">
-            <a id="NavID" href="./pages/events/"
-              >activities <i class="fa-solid fa-chevron-down"></i
-            ></a>
+            <a id="NavID">
+              activities <i class="fa-solid fa-chevron-down"></i>
+            </a>
             <div id="activities">
-              <p class="active"><a href="../events/">Events</a></p>
-              <p><a href="../workshops/">workshops</a></p>
+              <p><a href="./">Events</a></p>
+              <p class="active"><a href="../workshops/">workshops</a></p>
               <p><a href="../projects/">Projects</a></p>
             </div>
           </li>
@@ -33,22 +38,26 @@
         </ul>
       </nav>
     </section>
-
-    <div class="regester">
-      <div>
-        <form>
-          <div></div>
-        </form>
-      </div>
+    <section id="events">
+      <section id="Heading" class="cont our-up-coming">
+        <article>
+          <h2>our Vision</h2>
+          <p>how the future will be</p>
+          <span></span>
+        </article>
+        <article></article>
+      </section>
+      <div></div>
       <div>
         <div class="overlaiers" id="img"></div>
         <div class="overlay overlaiers"></div>
       </div>
-    </div>
+    </section>
+    <!-- <section class="regester"><div></div></section> -->
+
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
     <script src="../../assets/js/main.js"></script>
-    <script src="../../govs.js"></script>
-    <script src="./assets/main.js"></script>
+    <script src="./assets/js/main.js"></script>
   </body>
 </html>
