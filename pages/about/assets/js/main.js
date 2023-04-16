@@ -118,4 +118,6 @@
         partnersSection.append(partnerDiv);
       });
     });
+  toggleLoader("this-is-loader");
+
 })();

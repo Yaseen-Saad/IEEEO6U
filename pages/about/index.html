@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IEEE O6U </title>
+    <title>IEEE O6U</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
@@ -21,13 +21,32 @@
   </head>
 
   <body>
+    <div id="this-is-loader">
+      <div class="center">
+        <div class="loader">
+          <div class="circle circle-1"></div>
+          <div class="circle circle-2"></div>
+          <div class="circle circle-3"></div>
+          <div class="circle circle-4"></div>
+        </div>
+      </div>
+    </div>
     <section class="cont">
       <nav>
         <img src="../../assets/images/logo.png" alt="" />
         <ul>
           <li><a href="../../../">home</a></li>
           <li class="active"><a href="./">about us</a></li>
-          <li><a href="../events/">activities</a></li>
+          <li>
+            <a id="NavID"
+              >activities <i class="fa-solid fa-chevron-down"></i
+            ></a>
+            <div id="activities">
+              <p><a href="../events/">Events</a></p>
+              <p><a href="../workshops/">workshops</a></p>
+              <p><a href="../projects/">Projects</a></p>
+            </div>
+          </li>
           <li><a href="">content</a></li>
           <li><a href="">contact us</a></li>
         </ul>
@@ -75,6 +94,8 @@
     <!-- Import the Firebase SDK modules -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.0/anime.min.js"></script>
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="../../assets/js/main.js"></script>

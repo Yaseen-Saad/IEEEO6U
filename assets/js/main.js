@@ -136,3 +136,31 @@ async function appendEvent(collection, append, neededData) {
       });
     });
 }
+
+ let animation = {
+   targets: [".circle-1"],
+   translateY: -30,
+   translateX: 46,
+   direction: "alternate",
+   loop: true,
+   elasticity: 400,
+   easing: "easeInOutQuint",
+   duration: 2000,
+   delay: 400,
+ };
+ const circle1 = anime(animation);
+
+ animation.targets = [".circle-2"];
+ animation.translateY = 14;
+ animation.translateX = -7;
+ const circle2 = anime(animation);
+
+ animation.targets = [".circle-3"];
+ animation.translateY = -30;
+ animation.translateX = -7;
+ const circle3 = anime(animation);
+
+ animation.targets = [".circle-4"];
+ animation.translateX = -58;
+ animation.translateY = 16;
+ const circle4 = anime(animation);
