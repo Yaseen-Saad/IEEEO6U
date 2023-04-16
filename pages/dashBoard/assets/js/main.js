@@ -14,18 +14,25 @@ function filesViewer(fileInput, multiple) {
         : "No File Selected";
   });
 }
-function toggleLoader(id) {
-  const loader = document.querySelector(`#${id}`);
-  loader.classList.toggle("active");
-}
+
 calculateViews();
 filesViewer(document.getElementById("EVENTIMG"), false);
-filesViewer(document.getElementById("officerImage"), false);
 filesViewer(document.getElementById("EVENTIMGs"), true);
+filesViewer(document.getElementById("projectsImg"), false);
+filesViewer(document.getElementById("projectsImgs"), true);
+filesViewer(document.getElementById("officerImage"), false);
 filesViewer(document.getElementById("MemberImage"), false);
 filesViewer(document.getElementById("partnerImage"), false);
-const registrationCheckBox = document.getElementById("registration"),
-  optionsContainer = document.createElement("div"),
+const registrationCheckBoxForEvent = document.getElementById(
+    "registrationForEvent"
+  ),
+  registrationCheckBoxForProject = document.getElementById(
+    "registrationForProject"
+  ),
+  addEventForm = document.querySelector("form#events-form"),
+  addProjectForm = document.querySelector("form#projects-form"),
+  eventsOptionsContainer = document.createElement("div"),
+  projectsOptionsContainer = document.createElement("div"),
   defaultFields = [
     "First Name",
     "Last Name",
@@ -54,13 +61,11 @@ const registrationCheckBox = document.getElementById("registration"),
     { type: "select", label: "Select Box" },
   ];
 
-optionsContainer.id = "options";
-
-
-const handleRegistrationChange = (e) => {
+const handleRegistrationChange = (e, checkBox, form, optionsContainer) => {
+  optionsContainer.id = "options";
   optionsContainer.innerHTML = "";
-
-  if (registrationCheckBox.checked) {
+  console.log(checkBox);
+  if (checkBox.checked) {
     let html = "";
     for (const field of defaultFields) {
       html += `<div><input type="checkbox" id="${field}"><label for="${field}">${field}</label></div>`;
@@ -84,12 +89,27 @@ const handleRegistrationChange = (e) => {
     }
 
     optionsContainer.innerHTML = html;
-    addEventForm.insertBefore(optionsContainer, addEventForm.lastElementChild);
+    form.insertBefore(optionsContainer, form.lastElementChild);
   }
 };
 
-registrationCheckBox.addEventListener("change", handleRegistrationChange);
-
+registrationCheckBoxForEvent.addEventListener("change", () => {
+  handleRegistrationChange(
+    event,
+    registrationCheckBoxForEvent,
+    addEventForm,
+    eventsOptionsContainer
+  );
+});
+console.log(registrationCheckBoxForProject);
+registrationCheckBoxForProject.addEventListener("change", () => {
+  handleRegistrationChange(
+    event,
+    registrationCheckBoxForProject,
+    addProjectForm,
+    projectsOptionsContainer
+  );
+});
 
 async function addImagesToDataBase(file, event) {
   const EventimageId = file.name;
@@ -116,7 +136,6 @@ async function addImagesToDataBase(file, event) {
   }
 }
 
-
 async function uploadImageToStorage(file, reference) {
   const storageRef = firebase.storage().ref();
   const imageRef = storageRef.child(reference);
@@ -130,7 +149,6 @@ async function uploadImageToStorage(file, reference) {
   }
 }
 
-
 async function addDocToCollection(collection, doc) {
   try {
     await db.collection(collection).add(doc);
@@ -138,9 +156,6 @@ async function addDocToCollection(collection, doc) {
     console.error("Error adding event to database:", error);
   }
 }
-
-
-const addEventForm = document.querySelector("form#events-form");
 
 async function AddEvent(e) {
   e.preventDefault();
@@ -165,8 +180,8 @@ async function AddEvent(e) {
     giveAlert("Please choose an event image.", "#0a6a9c");
     return;
   }
-    toggleLoader("loader");
-  if (registrationCheckBox.checked) {
+  toggleLoader("loader");
+  if (registrationCheckBoxForEvent.checked) {
     const getFields = (options) => {
       return options
         .filter((option) => option.checked)
@@ -264,7 +279,6 @@ async function AddEvent(e) {
 
 addEventForm.addEventListener("submit", AddEvent);
 
-
 const addOfficerForm = document.querySelector("form#officers-form");
 
 async function AddOfficer(e) {
@@ -317,7 +331,6 @@ async function AddOfficer(e) {
 }
 
 addOfficerForm.addEventListener("submit", AddOfficer);
-
 
 const addPartnerForm = document.querySelector("form#partners-form");
 async function AddPartner(e) {
@@ -405,6 +418,132 @@ async function AddBestMember(e) {
   giveAlert("Best Member added successfully");
 }
 addBestMemberForm.addEventListener("submit", AddBestMember);
+
+async function addProject(e) {
+  e.preventDefault();
+  const ProjectName = addProjectForm.children[1].children[0].value,
+    ProjectDesc = addProjectForm.children[2].children[0].value,
+    ProjectImage = addProjectForm.children[3].children[0].files[0],
+    additionalImages = addProjectForm.children[4].children[0].files;
+  let neededData = [];
+  let Project = {};
+
+  // Validate required fields
+
+  if (!ProjectName) {
+    giveAlert("Please enter a valid Project name.", "#0a6a9c");
+    return;
+  }
+  if (!ProjectDesc) {
+    giveAlert("Event description cannot be empty.", "#0a6a9c");
+    return;
+  }
+  if (!ProjectImage) {
+    giveAlert("Please choose an Project image.", "#0a6a9c");
+    return;
+  }
+  toggleLoader("loader");
+  if (registrationCheckBoxForProject.checked) {
+    const getFields = (options) => {
+      return options
+        .filter((option) => option.checked)
+        .map((option) =>
+          option.nextSibling.textContent
+            .split(" ")
+            .map((word) =>
+              word.toLowerCase() == word ? word : word.toLowerCase()
+            )
+            .join("")
+        )
+        .map((field) => `${field}`);
+    };
+    neededData = getFields([
+      ...document.querySelectorAll("#options > div > input[type=checkbox]"),
+    ]);
+    const customFields = [
+      ...document.querySelectorAll(
+        "#options > div > div > input[type=checkbox]"
+      ),
+    ]
+      .map((field) => {
+        if (!field.checked) {
+          return null;
+        }
+        const fieldName = field.parentElement.nextElementSibling.value;
+        if (!fieldName) {
+          giveAlert(
+            `You must choose your ${field.nextElementSibling.textContent} name`,
+            "#0a6a9c"
+          );
+          return null;
+        }
+        if (field.id == "select") {
+          const fieldName =
+            field.parentElement.nextElementSibling.value.split(",")[0];
+          console.log(fieldName);
+          let options = field.parentElement.nextElementSibling.value.split(",");
+          options.shift();
+          options = options.map((option) => option.trim());
+          return { type: "dropDown", name: fieldName, options: options };
+        } else {
+          const fieldType = field.nextElementSibling.textContent
+            .split(" ")
+            .map((word) =>
+              word.toLowerCase() == word ? word : word.toLowerCase()
+            )
+            .join("");
+          return { type: fieldType, name: fieldName };
+        }
+      })
+      .filter((field) => field !== null);
+    console.log(customFields);
+    neededData.push(...customFields);
+  }
+
+  // Upload event image
+  const ProjectImageName = `${ProjectName}.${ProjectImage.name.split(".").pop()}`;
+  const ProjectImageReference = `ProjectsProject/${ProjectName}/${ProjectImageName}`;
+  const ProjectImageUrl = await uploadImageToStorage(
+    ProjectImage,
+    ProjectImageReference
+  );
+
+  // Upload additional images
+  const additionalImageUrls = await Promise.all(
+    [...additionalImages].map((file) => {
+      const additionalImageName = file.name;
+      const additionalImageReference = `Projects/${ProjectName}/${additionalImageName}`;
+      return uploadImageToStorage(file, additionalImageReference);
+    })
+  );
+
+  // Convert the Markdown to HTML using markdown-it
+
+  eventDesc;
+  const md = window.markdownit();
+
+  const HTMLeventDesc = md.render(eventDesc);
+
+  // Update event object
+
+  Project.ProjectName = ProjectName;
+  Project.ProjectDescription = HTMLeventDesc;
+  Project.ProjectImage = ProjectImageUrl;
+  Project.ProjectAdditionalImages = additionalImageUrls;
+  Project.dateCreated = firebase.firestore.FieldValue.serverTimestamp();
+  Project.neededData = neededData;
+
+  // Add event to database
+  await addDocToCollection("Project", event);
+  toggleLoader("loader");
+  giveAlert("Project added successfully");
+}
+
+addProjectForm.addEventListener("submit", addProject);
+
+
+
+
 
 function Ticker(elem) {
   elem.lettering();

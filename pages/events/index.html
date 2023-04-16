@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IEEEO6U</title>
+    <title>IEEE O6U </title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
@@ -17,6 +17,9 @@
   </head>
   <body>
     <!-- nav -->
+    <div id="loader" class="active">
+      <p>loading</p>
+    </div>
     <section class="cont">
       <nav>
         <img src="../../assets/images/logo.png" alt="" />
@@ -38,11 +41,11 @@
         </ul>
       </nav>
     </section>
-    <section id="events">
+    <section class="events-sec" id="prev-events">
       <section id="Heading" class="cont our-up-coming">
         <article>
-          <h2>our Vision</h2>
-          <p>how the future will be</p>
+          <h2>our previous events</h2>
+          <p>those how make who we are</p>
           <span></span>
         </article>
         <article></article>
@@ -53,7 +56,21 @@
         <div class="overlay overlaiers"></div>
       </div>
     </section>
-    <!-- <section class="regester"><div></div></section> -->
+    <section class="events-sec" id="up-coming-events">
+      <section id="Heading" class="cont our-up-coming">
+        <article>
+          <h2>our up coming events</h2>
+          <p>aren't you excited ?</p>
+          <span></span>
+        </article>
+        <article></article>
+      </section>
+      <div></div>
+      <div>
+        <div class="overlaiers" id="img"></div>
+        <div class="overlay overlaiers"></div>
+      </div>
+    </section>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>

@@ -64,12 +64,53 @@
           </div>
 
           <div>
-            <input type="checkbox" id="registration" /><label for="registration"
+            <input type="checkbox" id="registrationForEvent" /><label for="registrationForEvent"
               >Registration</label
             >
           </div>
-          <input type="submit" id="submit" value="submit" />
+          <input type="submit" id="submitEvent" value="submit" />
         </form>
+
+        <form id="projects-form">
+          <h2>Add Project</h2>
+          <div><input type="text" placeholder="project Name" /></div>
+          <div>
+            <textarea
+              placeholder="project Description (You Can Use MD Language For Styling)"
+            ></textarea>
+          </div>
+
+          <div>
+            <input type="file" accept="image/*" hidden id="projectsImg" />
+            <label id="projectsImageLabel" for="projectsImg">
+              <span> Project Image </span></label
+            >
+            <p id="choosenImageForTheProject"></p>
+          </div>
+
+          <div>
+            <input
+              multiple
+              type="file"
+              accept="image/*"
+              hidden
+              id="projectsImgs"
+            />
+            <label id="projectsImgsLabel" for="projectsImgs">
+              <span> Project Image(s) </span></label
+            >
+            <p id="choosenImagesForTheProject"></p>
+          </div>
+
+          <div>
+            <input type="checkbox" id="registrationForProject" /><label
+              for="registrationForProject"
+              >Registration</label
+            >
+          </div>
+          <input type="submit" id="submitProject" value="submit" />
+        </form>
+
         <form id="officers-form">
           <h2>Add officer</h2>
           <div><input type="text" placeholder="officer's Name" /></div>

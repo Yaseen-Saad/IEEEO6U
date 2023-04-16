@@ -7,16 +7,25 @@ const firebaseConfig = {
   appId: "1:10593373879:web:7819971067d943a9304732",
   measurementId: "G-XGPTC0VHKT",
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const navList = document.querySelector("#NavID");
-const activities = document.querySelector("#activities");
-navList.onclick = (e) => {
-  e.preventDefault();
-  activities.classList.toggle("active");
-  navList.children[0].classList.toggle("active");
-};
+if (!/dashboard/gi.test(location.href)) {
+  const navList = document.querySelector("#NavID");
+  const activities = document.querySelector("#activities");
+
+  navList.onclick = (e) => {
+    e.preventDefault();
+    activities.classList.toggle("active");
+    navList.children[0].classList.toggle("active");
+  };
+}
+
+function toggleLoader(id) {
+  const loader = document.querySelector(`#${id}`);
+  loader.classList.toggle("active");
+}
 
 async function view() {
   db.collection("dashBoard")
@@ -24,9 +33,11 @@ async function view() {
     .update({ data: firebase.firestore.FieldValue.increment(1) });
   sessionStorage.setItem("viewed", true);
 }
+
 onload = () => {
   if (!sessionStorage.getItem("viewed")) view();
 };
+
 function limitWords(str, maxChars) {
   // remove whitespace at the beginning and end of the string
   str = str.trim();
@@ -39,6 +50,7 @@ function limitWords(str, maxChars) {
   // count the number of words
   return str;
 }
+
 function calculateViews() {
   db.collection("dashBoard")
     .doc("views")
@@ -47,6 +59,7 @@ function calculateViews() {
       visitors.textContent = snap.data().data;
     });
 }
+
 function giveAlert(alert, color, from) {
   return new Promise((resolve, reject) => {
     let body = document.createElement("div"),
@@ -78,4 +91,44 @@ function giveAlert(alert, color, from) {
     body.append(admin, text, response);
     document.body.append(body, overlay);
   });
+}
+
+async function appendEvent(collection, append, neededData) {
+  let collectionCondition = collection,
+    href;
+  if (neededData) {
+    collectionCondition = collectionCondition
+      .where("neededData", "!=", [])
+      .orderBy("neededData");
+    href = `../register/?doc=`;
+  } else {
+    collectionCondition = collectionCondition.where("neededData", "==", []);
+    href = `./event/?doc=`;
+  }
+  await collectionCondition
+    .orderBy("dateCreated")
+    .limit(20)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        const event = doc.data(),
+          eventArticle = document.createElement("a"),
+          eventImage = document.createElement("img"),
+          eventImageDiv = document.createElement("div"),
+          eventData = document.createElement("div"),
+          eventName = document.createElement("h2"),
+          eventDescription = document.createElement("p");
+        eventArticle.title = "Click To Register";
+        if (/.\/event/.test(href)) eventArticle.title = "Click To Show More";
+        eventImage.src = event.eventImage;
+        eventName.innerHTML = event.eventName;
+        eventDescription.innerHTML = limitWords(event.eventDescription, 320);
+        eventArticle.href = href + doc.id;
+
+        eventData.append(eventName, eventDescription);
+        eventImageDiv.append(eventImage);
+        eventArticle.append(eventImageDiv, eventData);
+        append.append(eventArticle);
+      });
+    });
 }
