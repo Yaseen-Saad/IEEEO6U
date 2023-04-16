@@ -105,6 +105,10 @@ async function appendEvent(collection, append, neededData) {
     collectionCondition = collectionCondition.where("neededData", "==", []);
     href = `./event/?doc=`;
   }
+  if (collection == 'Projects') {
+    href = `./project/?doc=`;
+    
+  }
   await collectionCondition
     .orderBy("dateCreated")
     .limit(20)

@@ -1,6 +1,6 @@
 const PARAMS = new URLSearchParams(window.location.search);
 const doc = PARAMS.get("doc");
-const eventSec = document.querySelector("#Projects-sec #Project");
+const eventSec = document.querySelector(".Projects-sec #Project");
 if (doc) {
   db.collection("Projects")
     .doc(doc)
