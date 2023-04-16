@@ -5,4 +5,5 @@ const comingEventsSection = document.querySelector("#up-coming-projects > div");
   await appendEvent("Projects", prevEventsSection, false);
   await appendEvent("Projects", comingEventsSection, true);
   toggleLoader("this-is-loader");
+pauseAnimation();
 })();

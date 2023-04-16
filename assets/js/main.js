@@ -105,9 +105,8 @@ async function appendEvent(collection, append, neededData) {
     collectionCondition = collectionCondition.where("neededData", "==", []);
     href = `./event/?doc=`;
   }
-  if (collection == 'Projects') {
+  if (collection == "Projects") {
     href = `./project/?doc=`;
-    
   }
   await collectionCondition
     .orderBy("dateCreated")
@@ -137,30 +136,36 @@ async function appendEvent(collection, append, neededData) {
     });
 }
 
- let animation = {
-   targets: [".circle-1"],
-   translateY: -30,
-   translateX: 46,
-   direction: "alternate",
-   loop: true,
-   elasticity: 400,
-   easing: "easeInOutQuint",
-   duration: 2000,
-   delay: 400,
- };
- const circle1 = anime(animation);
+let animation = {
+  targets: [".circle-1"],
+  translateY: -30,
+  translateX: 46,
+  direction: "alternate",
+  loop: true,
+  elasticity: 400,
+  easing: "easeInOutQuint",
+  duration: 2000,
+  delay: 400,
+};
+const circle1 = anime(animation);
 
- animation.targets = [".circle-2"];
- animation.translateY = 14;
- animation.translateX = -7;
- const circle2 = anime(animation);
+animation.targets = [".circle-2"];
+animation.translateY = 14;
+animation.translateX = -7;
+const circle2 = anime(animation);
 
- animation.targets = [".circle-3"];
- animation.translateY = -30;
- animation.translateX = -7;
- const circle3 = anime(animation);
+animation.targets = [".circle-3"];
+animation.translateY = -30;
+animation.translateX = -7;
+const circle3 = anime(animation);
 
- animation.targets = [".circle-4"];
- animation.translateX = -58;
- animation.translateY = 16;
- const circle4 = anime(animation);
+animation.targets = [".circle-4"];
+animation.translateX = -58;
+animation.translateY = 16;
+const circle4 = anime(animation);
+function pauseAnimation() {
+  circle1.pause();
+  circle2.pause();
+  circle3.pause();
+  circle4.pause();
+}

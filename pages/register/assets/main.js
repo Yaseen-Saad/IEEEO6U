@@ -347,5 +347,6 @@ if (doc) {
         form.lastElementChild.insertAdjacentElement("afterend", button);
       });
     toggleLoader("this-is-loader");
+pauseAnimation();
   })();
 }

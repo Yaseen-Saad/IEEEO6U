@@ -30,4 +30,5 @@ const collectionRef = db.collection("events");
     });
   });
   toggleLoader("this-is-loader");
+pauseAnimation();
 })();

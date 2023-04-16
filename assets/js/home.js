@@ -199,4 +199,5 @@
     });
 
   toggleLoader("this-is-loader");
+pauseAnimation();
 })();

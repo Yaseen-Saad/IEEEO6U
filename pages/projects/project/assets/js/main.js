@@ -28,5 +28,6 @@ if (doc) {
         eventSec.append(eventImage, eventTitle, eventDescription, eventImages);
       });
     toggleLoader("this-is-loader");
+pauseAnimation();
   })();
 }
