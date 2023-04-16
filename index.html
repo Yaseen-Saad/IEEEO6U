@@ -3,7 +3,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IEEE O6U </title>
+    <title>IEEE O6U</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
@@ -18,9 +18,50 @@
     />
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/home.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.0/anime.min.js"></script>
   </head>
-
   <body>
+    <div id="this-is-loader">
+      <div class="center">
+        <div class="loader">
+          <div class="circle circle-1"></div>
+          <div class="circle circle-2"></div>
+          <div class="circle circle-3"></div>
+          <div class="circle circle-4"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let animation = {
+        targets: [".circle-1"],
+        translateY: -28,
+        translateX: 44,
+        direction: "alternate",
+        loop: true,
+        elasticity: 400,
+        easing: "easeInOutQuart",
+        duration: 2000,
+        delay: 500,
+      };
+      const circle1 = anime(animation);
+
+      animation.targets = [".circle-2"];
+      animation.translateY = 12;
+      animation.translateX = -5;
+      const circle2 = anime(animation);
+
+      animation.targets = [".circle-3"];
+      animation.translateY = -31;
+      animation.translateX = -5;
+      const circle3 = anime(animation);
+
+      //    transform: translate(-44px, 9px);
+      //      transform: translate(43px, -28px);
+      animation.targets = [".circle-4"];
+      animation.translateX = -52;
+      animation.translateY =12;
+      const circle4 = anime(animation);
+    </script>
     <!-- nav -->
     <section class="cont">
       <nav>
