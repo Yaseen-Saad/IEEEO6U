@@ -1,8 +1,8 @@
 const PARAMS = new URLSearchParams(window.location.search);
 const doc = PARAMS.get("doc");
-const eventSec = document.querySelector("#events #event");
+const eventSec = document.querySelector("#Projects-sec #Project");
 if (doc) {
-  db.collection("events")
+  db.collection("Projects")
     .doc(doc)
     .get()
     .then((doc) => {
@@ -26,25 +26,3 @@ if (doc) {
       eventSec.append(eventImage, eventTitle, eventDescription, eventImages);
     });
 }
-/* 
-
-section id="events">
-      <div id="event">
-        <img src="../assets/images/techne.jpg" alt="">
-        <h2>techne summit cairo</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem delectus vel, praesentium inventore deserunt tempora modi ullam, labore libero, voluptate nemo. Exercitationem earum quidem sequi quasi ad nemo aliquid perspiciatis!</p>
-        <div>
-            <img src="../../../assets/images/abdelaziz.png" alt="">
-            <img src="../../../assets/images/abdelaziz.png" alt="">
-            <img src="../../../assets/images/abdelaziz.png" alt="">
-            <img src="../../../assets/images/abdelaziz.png" alt="">
-            <img src="../../../assets/images/abdelaziz.png" alt="">
-            <img src="../../../assets/images/abdelaziz.png" alt="">
-            <img src="../../../assets/images/abdelaziz.png" alt="">
-        </div>
-      </div>
-      <div>
-        <div class="overlaiers" id="img"></div>
-        <div class="overlay overlaiers"></div>
-      </div>
-    </section>*/

@@ -94,7 +94,7 @@ function giveAlert(alert, color, from) {
 }
 
 async function appendEvent(collection, append, neededData) {
-  let collectionCondition = collection,
+  let collectionCondition = db.collection(collection),
     href;
   if (neededData) {
     collectionCondition = collectionCondition
@@ -123,7 +123,7 @@ async function appendEvent(collection, append, neededData) {
         eventImage.src = event.eventImage;
         eventName.innerHTML = event.eventName;
         eventDescription.innerHTML = limitWords(event.eventDescription, 320);
-        eventArticle.href = href + doc.id;
+        eventArticle.href = href + doc.id + `&collection=${collection}`;
 
         eventData.append(eventName, eventDescription);
         eventImageDiv.append(eventImage);

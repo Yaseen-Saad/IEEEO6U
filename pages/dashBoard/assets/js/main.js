@@ -501,7 +501,9 @@ async function addProject(e) {
   }
 
   // Upload event image
-  const ProjectImageName = `${ProjectName}.${ProjectImage.name.split(".").pop()}`;
+  const ProjectImageName = `${ProjectName}.${ProjectImage.name
+    .split(".")
+    .pop()}`;
   const ProjectImageReference = `ProjectsProject/${ProjectName}/${ProjectImageName}`;
   const ProjectImageUrl = await uploadImageToStorage(
     ProjectImage,
@@ -519,31 +521,26 @@ async function addProject(e) {
 
   // Convert the Markdown to HTML using markdown-it
 
-  eventDesc;
   const md = window.markdownit();
 
-  const HTMLeventDesc = md.render(eventDesc);
+  const HTMLeventDesc = md.render(ProjectDesc);
 
   // Update event object
 
-  Project.ProjectName = ProjectName;
-  Project.ProjectDescription = HTMLeventDesc;
-  Project.ProjectImage = ProjectImageUrl;
-  Project.ProjectAdditionalImages = additionalImageUrls;
+  Project.eventName = ProjectName;
+  Project.eventDescription = HTMLeventDesc;
+  Project.eventImage = ProjectImageUrl;
+  Project.eventAdditionalImages = additionalImageUrls;
   Project.dateCreated = firebase.firestore.FieldValue.serverTimestamp();
   Project.neededData = neededData;
-
+  console.log(Project);
   // Add event to database
-  await addDocToCollection("Project", event);
+  await addDocToCollection("Projects", Project);
   toggleLoader("loader");
   giveAlert("Project added successfully");
 }
 
 addProjectForm.addEventListener("submit", addProject);
-
-
-
-
 
 function Ticker(elem) {
   elem.lettering();

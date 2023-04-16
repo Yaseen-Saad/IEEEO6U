@@ -1,7 +1,23 @@
 const urlParams = new URLSearchParams(window.location.search),
-  doc = urlParams.get("doc");
+  doc = urlParams.get("doc"),
+  collection = urlParams.get("collection");
+document.querySelectorAll("nav .active").forEach((li) => {
+  li.classList.remove("active");
+  document.querySelector("nav ul :has(#NavID)").classList.add("active");
+});
+if (collection == "Projects")
+  document
+    .querySelector("nav ul li #activities p:last-child")
+    .classList.add("active");
+else if (collection == "events")
+  document
+    .querySelector("nav ul li #activities p:first-child")
+    .classList.add("active");
+
+
+
 if (doc) {
-  db.collection("events")
+  db.collection(collection)
     .doc(doc)
     .get()
     .then((doc) => {
@@ -12,19 +28,17 @@ if (doc) {
       const eventName = document.createElement("h2"),
         eventDescription = document.createElement("p"),
         eventImage = document.createElement("img");
-
       eventImage.src = data.eventImage;
       eventName.textContent = "Meet Us At " + data.eventName;
       eventDescription.innerHTML = data.eventDescription;
 
       eventDescription.id = "EventDesc";
-      
+
       realForm.prepend(eventImage);
-      
+
       form.append(eventName, eventDescription);
       let neededData = data.neededData;
       neededData.map((key) => {
-        console.log(key);
 
         let filed = document.createElement("div"),
           input = document.createElement("input"),
