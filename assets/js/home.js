@@ -1,8 +1,9 @@
 (async function () {
   let events = 0,
     upcomingEvents = 0;
+  const collection = "events";
   await db
-    .collection("events")
+    .collection(collection)
     .where("neededData", "==", [])
     .orderBy("dateCreated", "desc")
     .limit(6)
@@ -27,7 +28,7 @@
         EventDesc.innerHTML = limitWords(event.eventDescription, 200);
 
         const toEventButton = document.createElement("a");
-        toEventButton.href = `./pages/events/event/?doc=${doc.id}`;
+        toEventButton.href = `./pages/events/event/?doc=${doc.id}&collection=${collection}`;
         toEventButton.textContent = "Learn More";
         toEventButton.className = "button";
 
@@ -55,7 +56,7 @@
     });
 
   await db
-    .collection("events")
+    .collection(collection)
     .where("neededData", "!=", [])
     .orderBy("neededData")
     .orderBy("dateCreated", "asc")
@@ -81,7 +82,7 @@
 
         const EventButton = document.createElement("a");
         EventButton.textContent = "register";
-        EventButton.href = `./pages/register/?doc=${doc.id}`;
+        EventButton.href = `./pages/register/?doc=${doc.id}&collection=${collection}`;
         EventButton.className = "button";
 
         const EventDiv = document.createElement("div");
@@ -199,5 +200,5 @@
     });
 
   toggleLoader("this-is-loader");
-pauseAnimation();
+  pauseAnimation();
 })();

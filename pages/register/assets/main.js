@@ -346,7 +346,7 @@ if (doc) {
         button.textContent = "Meet Us";
         form.lastElementChild.insertAdjacentElement("afterend", button);
       });
-    toggleLoader("this-is-loader");
-pauseAnimation();
+  toggleLoader("this-is-loader");
+  pauseAnimation();
   })();
 }
