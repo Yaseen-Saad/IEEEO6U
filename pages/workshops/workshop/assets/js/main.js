@@ -1,10 +1,10 @@
 const PARAMS = new URLSearchParams(window.location.search);
 const doc = PARAMS.get("doc");
-const eventSec = document.querySelector("#events #event");
+const eventSec = document.querySelector(".Workshops-sec #Workshop");
 if (doc) {
   (async () => {
     await db
-      .collection("events")
+      .collection("Workshops")
       .doc(doc)
       .get()
       .then((doc) => {
@@ -15,7 +15,7 @@ if (doc) {
 
         const eventTitle = document.createElement("h2");
         eventTitle.textContent = event.eventName;
-        eventTitle.id = "eventTitle";
+        eventTitle.id = "Workshop Title";
         const eventDescription = document.createElement("p");
         eventDescription.innerHTML = event.eventDescription;
 
@@ -28,6 +28,6 @@ if (doc) {
         eventSec.append(eventImage, eventTitle, eventDescription, eventImages);
       });
     toggleLoader("this-is-loader");
-pauseAnimation();
+    pauseAnimation();
   })();
 }

@@ -20,6 +20,8 @@ filesViewer(document.getElementById("EVENTIMG"), false);
 filesViewer(document.getElementById("EVENTIMGs"), true);
 filesViewer(document.getElementById("projectsImg"), false);
 filesViewer(document.getElementById("projectsImgs"), true);
+filesViewer(document.getElementById("WorkshopImg"), false);
+filesViewer(document.getElementById("WorkshopsImgs"), true);
 filesViewer(document.getElementById("officerImage"), false);
 filesViewer(document.getElementById("MemberImage"), false);
 filesViewer(document.getElementById("partnerImage"), false);
@@ -29,10 +31,15 @@ const registrationCheckBoxForEvent = document.getElementById(
   registrationCheckBoxForProject = document.getElementById(
     "registrationForProject"
   ),
+  registrationCheckBoxForWorkshops = document.getElementById(
+    "registrationForWorkshop"
+  ),
   addEventForm = document.querySelector("form#events-form"),
   addProjectForm = document.querySelector("form#projects-form"),
+  addWorkshopForm = document.querySelector("form#Workshops-form"),
   eventsOptionsContainer = document.createElement("div"),
   projectsOptionsContainer = document.createElement("div"),
+  workshopsOptionsContainer = document.createElement("div"),
   defaultFields = [
     "First Name",
     "Last Name",
@@ -93,6 +100,16 @@ const handleRegistrationChange = (e, checkBox, form, optionsContainer) => {
   }
 };
 
+registrationCheckBoxForWorkshops.addEventListener("change", () => {
+  handleRegistrationChange(
+    event,
+    registrationCheckBoxForWorkshops,
+    addWorkshopForm,
+    workshopsOptionsContainer
+  );
+});
+
+
 registrationCheckBoxForEvent.addEventListener("change", () => {
   handleRegistrationChange(
     event,
@@ -101,7 +118,6 @@ registrationCheckBoxForEvent.addEventListener("change", () => {
     eventsOptionsContainer
   );
 });
-console.log(registrationCheckBoxForProject);
 registrationCheckBoxForProject.addEventListener("change", () => {
   handleRegistrationChange(
     event,
@@ -435,7 +451,7 @@ async function addProject(e) {
     return;
   }
   if (!ProjectDesc) {
-    giveAlert("Event description cannot be empty.", "#0a6a9c");
+    giveAlert("project description cannot be empty.", "#0a6a9c");
     return;
   }
   if (!ProjectImage) {
@@ -541,6 +557,127 @@ async function addProject(e) {
 }
 
 addProjectForm.addEventListener("submit", addProject);
+
+async function addWorkshop(e) {
+  e.preventDefault();
+  const WorkshopName = addWorkshopForm.children[1].children[0].value,
+    WorkshopDesc = addWorkshopForm.children[2].children[0].value,
+    WorkshopImage = addWorkshopForm.children[3].children[0].files[0],
+    additionalImages = addWorkshopForm.children[4].children[0].files;
+  let neededData = [];
+  let Workshop = {};
+  // Validate required fields
+
+  if (!WorkshopName) {
+    giveAlert("Please enter a valid Workshop name.", "#0a6a9c");
+    return;
+  }
+  if (!WorkshopDesc) {
+    giveAlert("Workshop description cannot be empty.", "#0a6a9c");
+    return;
+  }
+  if (!WorkshopImage) {
+    giveAlert("Please choose an Workshop image.", "#0a6a9c");
+    return;
+  }
+  toggleLoader("loader");
+  if (registrationCheckBoxForWorkshops.checked) {
+    const getFields = (options) => {
+      return options
+        .filter((option) => option.checked)
+        .map((option) =>
+          option.nextSibling.textContent
+            .split(" ")
+            .map((word) =>
+              word.toLowerCase() == word ? word : word.toLowerCase()
+            )
+            .join("")
+        )
+        .map((field) => `${field}`);
+    };
+    neededData = getFields([
+      ...document.querySelectorAll("#options > div > input[type=checkbox]"),
+    ]);
+    const customFields = [
+      ...document.querySelectorAll(
+        "#options > div > div > input[type=checkbox]"
+      ),
+    ]
+      .map((field) => {
+        if (!field.checked) {
+          return null;
+        }
+        const fieldName = field.parentElement.nextElementSibling.value;
+        if (!fieldName) {
+          giveAlert(
+            `You must choose your ${field.nextElementSibling.textContent} name`,
+            "#0a6a9c"
+          );
+          return null;
+        }
+        if (field.id == "select") {
+          const fieldName =
+            field.parentElement.nextElementSibling.value.split(",")[0];
+          let options = field.parentElement.nextElementSibling.value.split(",");
+          options.shift();
+          options = options.map((option) => option.trim());
+          return { type: "dropDown", name: fieldName, options: options };
+        } else {
+          const fieldType = field.nextElementSibling.textContent
+            .split(" ")
+            .map((word) =>
+              word.toLowerCase() == word ? word : word.toLowerCase()
+            )
+            .join("");
+          return { type: fieldType, name: fieldName };
+        }
+      })
+      .filter((field) => field !== null);
+    console.log(customFields);
+    neededData.push(...customFields);
+  }
+
+  // Upload event image
+  const WorkshopImageName = `${WorkshopName}.${WorkshopImage.name
+    .split(".")
+    .pop()}`;
+  const WorkshopImageReference = `Workshops/${WorkshopName}/${WorkshopName}`;
+  const WorkshopImageUrl = await uploadImageToStorage(
+    WorkshopImage,
+    WorkshopImageReference
+  );
+
+  // Upload additional images
+  const additionalImageUrls = await Promise.all(
+    [...additionalImages].map((file) => {
+      const additionalImageName = file.name;
+      const additionalImageReference = `Workshops/${WorkshopName}/${additionalImageName}`;
+      return uploadImageToStorage(file, additionalImageReference);
+    })
+  );
+
+  // Convert the Markdown to HTML using markdown-it
+
+  const md = window.markdownit();
+
+  const HTMLeventDesc = md.render(WorkshopDesc);
+
+  // Update event object
+
+  Workshop.eventName = WorkshopName;
+  Workshop.eventDescription = HTMLeventDesc;
+  Workshop.eventImage = WorkshopImageUrl;
+  Workshop.eventAdditionalImages = additionalImageUrls;
+  Workshop.dateCreated = firebase.firestore.FieldValue.serverTimestamp();
+  Workshop.neededData = neededData;
+  console.log(Workshop);
+  // Add event to database
+  await addDocToCollection("Workshops", Workshop);
+  toggleLoader("loader");
+  giveAlert("Workshop added successfully");
+}
+
+addWorkshopForm.addEventListener("submit", addWorkshop);
 
 function Ticker(elem) {
   elem.lettering();

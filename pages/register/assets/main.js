@@ -13,6 +13,10 @@ else if (collection == "events")
   document
     .querySelector("nav ul li #activities p:first-child")
     .classList.add("active");
+else if (collection == "Workshops")
+  document
+    .querySelector("nav ul li #activities p:nth-child(2)")
+    .classList.add("active");
 
 if (doc) {
   (async () => {

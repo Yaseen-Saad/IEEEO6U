@@ -64,11 +64,52 @@
           </div>
 
           <div>
-            <input type="checkbox" id="registrationForEvent" /><label for="registrationForEvent"
+            <input type="checkbox" id="registrationForEvent" /><label
+              for="registrationForEvent"
               >Registration</label
             >
           </div>
           <input type="submit" id="submitEvent" value="submit" />
+        </form>
+
+        <form id="Workshops-form">
+          <h2>Add Workshop</h2>
+          <div><input type="text" placeholder="Workshop Name" /></div>
+          <div>
+            <textarea
+              placeholder="Workshop Description (You Can Use MD Language For Styling)"
+            ></textarea>
+          </div>
+
+          <div>
+            <input type="file" accept="image/*" hidden id="WorkshopImg" />
+            <label id="WorkshopsImageLabel" for="WorkshopImg">
+              <span> Workshop Image </span>
+            </label>
+            <p id="choosenImageForTheWorkshop"></p>
+          </div>
+
+          <div>
+            <input
+              multiple
+              type="file"
+              accept="image/*"
+              hidden
+              id="WorkshopsImgs"
+            />
+            <label id="WorkshopsImgsLabel" for="WorkshopsImgs">
+              <span> Workshop Image(s) </span></label
+            >
+            <p id="choosenImagesForTheWorkshop"></p>
+          </div>
+
+          <div>
+            <input type="checkbox" id="registrationForWorkshop" /><label
+              for="registrationForWorkshop"
+              >Registration</label
+            >
+          </div>
+          <input type="submit" id="submitWorkshop" value="submit" />
         </form>
 
         <form id="projects-form">
