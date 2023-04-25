@@ -88,6 +88,7 @@ if (doc) {
             // label.textContent = "Your " + inputFiled.name;
             select.append(defualt, box);
             filed.append(label, select);
+            filed.setAttribute("fieldType", key);
             form.append(filed);
             form.append(document.createElement("hr"));
             return;
@@ -107,8 +108,10 @@ if (doc) {
             Govlabel.onclick = selectGov.click();
             Govlabel.style.cursor = "pointer";
             selectGov.append(selectGovdefualt, selectGovbox);
+            fieldgov.append(Govlabel);
             fieldgov.append(selectGov);
-            form.append(Govlabel, fieldgov);
+            fieldgov.setAttribute("fieldType", "governorate");
+            form.append(fieldgov);
             form.append(document.createElement("hr"));
 
             data.governorates.map((ele) => {
@@ -182,6 +185,7 @@ if (doc) {
             };
             select.append(defualt, box);
             field.append(label, select);
+            field.setAttribute("fieldType", "city");
             form.append(field);
             form.append(document.createElement("hr"));
             return;
@@ -218,6 +222,8 @@ if (doc) {
             });
             select.append(defualt, box);
             field.append(label, select);
+            console.log(field);
+            field.setAttribute("fieldType", key.name);
             form.append(field);
             form.append(document.createElement("hr"));
             return;
@@ -341,16 +347,47 @@ if (doc) {
               if (!/^https?:\/\/\w+/.test(input.value)) validated = false;
             };
           }
-
+          filed.setAttribute(
+            "fieldType",
+            typeof key == "object" ? key.name : key
+          );
           filed.append(input, label);
           form.append(filed);
           form.append(document.createElement("hr"));
         });
         let button = document.createElement("button");
         button.textContent = "Meet Us";
+        button.id = "register";
         form.lastElementChild.insertAdjacentElement("afterend", button);
+      })
+      .then(async () => {
+        document
+          .getElementById("register")
+          .addEventListener("click", async (e) => {
+
+            e.preventDefault();
+            const keys = [
+              ...document.querySelectorAll("form > div > div label"),
+            ].map((ele) => {
+              ele.textContent;
+            });
+            const userData = [...document.querySelectorAll("form > div > div")]
+              .map((ele) => {
+                if (ele.querySelector("p")) {
+                  return ele.querySelector("#default_option").textContent;
+                }
+                return ele.querySelector("input").value;
+              })
+              .reduce(
+                (acc, key, index) => ({ ...acc, [keys[index]]: key }),
+                {}
+              );
+            console.log(userData);
+
+            
+          });
       });
-  toggleLoader("this-is-loader");
-  pauseAnimation();
+    toggleLoader("this-is-loader");
+    pauseAnimation();
   })();
 }
