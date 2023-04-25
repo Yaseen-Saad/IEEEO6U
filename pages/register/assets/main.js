@@ -237,11 +237,7 @@ if (doc) {
             key === "jobtitle" ||
             key === "address"
           ) {
-            input.onblur = (e) => {
-              if (/\d/.test(input.value)) validated = false;
-            };
             label.textContent = "Your ";
-
             if (key === "lastname") {
               label.textContent += " Last Name";
             } else if (key === "firstname") {
@@ -259,22 +255,10 @@ if (doc) {
             }
           }
 
-          if (key === "email") {
-            label.textContent = "Your Email";
-            input.onblur = (e) => {
-              if (
-                !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
-                  input.value
-                )
-              )
-                validated = false;
-            };
-          }
+          if (key === "email") label.textContent = "Your Email";
+
           if (key === "phone" || key === "whatsapp" || key.type == "phone") {
             label.textContent = "Your ";
-            input.onblur = (e) => {
-              if (input.value.length < 11) validated = false;
-            };
             if (key === "phone") {
               label.textContent += " Phone Number";
             } else if (key === "whatsapp") {
@@ -284,72 +268,25 @@ if (doc) {
             }
           }
 
-          if (key === "linkedin") {
+          if (key === "linkedin")
             label.textContent = "Your linkedin Profile URL";
-            input.onblur = (e) => {
-              if (
-                !/^https?:\/\/(www\.)?linkedin\.com\/(in|profile)\/[a-z0-9_-]+\/?$/i.test(
-                  input.value
-                )
-              )
-                validated = false;
-            };
-          }
-          if (key === "facebook") {
+
+          if (key === "facebook")
             label.textContent = "Your FaceBook Profile URL";
-            input.onblur = (e) => {
-              if (
-                !/^https?:\/\/(www\.)?facebook\.com\/[a-z0-9\.]+\/?$/i.test(
-                  input.value
-                )
-              ) {
-              }
-            };
-          }
-          if (key === "instagram") {
+
+          if (key === "instagram")
             label.textContent = "Your instagram Profile URL";
-            input.onblur = (e) => {
-              if (
-                !/^https?:\/\/(www\.)?instagram\.com\/[a-z0-9_\.]+\/?$/i.test(
-                  input.value
-                )
-              )
-                validated = false;
-            };
-          }
 
           if (key === "yearsofexperience") {
-            input.onblur = (e) => {
-              if (Number(input.value) > 0 && Number(input.value) % 1 == 0)
-                validated = false;
-            };
             input.type = "number";
             label.textContent = "Your Years Of Experince";
           }
 
-          if (key.type == "text") {
-            input.onblur = () => {
-              if (!input.value) validated = false;
-            };
-            label.textContent = "Your " + key.name;
-          }
-          if (key.type == "number") {
-            input.onblur = (e) => {
-              if (!input.value) validated = false;
-            };
-            input.type = "number";
-            label.textContent = "Your " + key.name;
-          }
+          if (key.type) label.textContent = "Your " + key.name;
 
-          if (key.type == "url") {
-            label.textContent = "Your " + key.name;
-            input.onblur = (e) => {
-              if (!/^https?:\/\/\w+/.test(input.value)) validated = false;
-            };
-          }
           filed.setAttribute(
             "fieldType",
-            typeof key == "object" ? key.name : key
+            typeof key == "object" ? key.type : key
           );
           filed.append(input, label);
           form.append(filed);
@@ -364,14 +301,13 @@ if (doc) {
         document
           .getElementById("register")
           .addEventListener("click", async (e) => {
-
             e.preventDefault();
-            const keys = [
-              ...document.querySelectorAll("form > div > div label"),
-            ].map((ele) => {
-              ele.textContent;
-            });
+            const keys = [...document.querySelectorAll("form > div >div")].map(
+              (ele) => ele.getAttribute("fieldtype")
+            );
+            // form > div > input > value
             const userData = [...document.querySelectorAll("form > div > div")]
+              .concat([...document.querySelectorAll("form>div>input")])
               .map((ele) => {
                 if (ele.querySelector("p")) {
                   return ele.querySelector("#default_option").textContent;
@@ -382,9 +318,118 @@ if (doc) {
                 (acc, key, index) => ({ ...acc, [keys[index]]: key }),
                 {}
               );
-            console.log(userData);
 
-            
+            let validated = true;
+            const alertMessage = "Please Enter ";
+            for (const input of document.querySelectorAll(
+              "form >div div input"
+            )) {
+              const field = input.parentNode.getAttribute("fieldType");
+              if (
+                field === "firstname" ||
+                field === "lastname" ||
+                field === "university" ||
+                field === "faculty" ||
+                field === "committee" ||
+                field === "jobtitle" ||
+                field === "address"
+              ) {
+                console.log(
+                  /\d/.test(input.value) || input.value == "",
+                  /\d/.test(input.value)
+                );
+                if (/\d/.test(input.value) || input.value == "") {
+                  giveAlert(
+                    alertMessage + input.nextElementSibling.textContent
+                  );
+                  validated = 0;
+                  return;
+                }
+              } else if (field === "email") {
+                if (
+                  !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+                    input.value
+                  )
+                ) {
+                  giveAlert(
+                    alertMessage + input.nextElementSibling.textContent
+                  );
+                  validated = 0;
+                  return;
+                }
+              } else if (
+                field === "phone" ||
+                field === "whatsapp" ||
+                field === "phone"
+              )
+                if (input.value.length < 11) validated = 0;
+                else if (field === "linkedin")
+                  if (
+                    !/^https?:\/\/(www\.)?linkedin\.com\/(in|profile)\/[a-z0-9_-]+\/?$/i.test(
+                      input.value
+                    )
+                  ) {
+                    giveAlert(
+                      alertMessage + input.nextElementSibling.textContent
+                    );
+                    validated = 0;
+                    return;
+                  } else if (field === "facebook") {
+                    if (
+                      !/^https?:\/\/(www\.)?facebook\.com\/[a-z0-9\.]+\/?$/i.test(
+                        input.value
+                      )
+                    ) {
+                      giveAlert(
+                        alertMessage + input.nextElementSibling.textContent
+                      );
+                      validated = 0;
+                      return;
+                    }
+                  } else if (field === "instagram") {
+                    if (
+                      !/^https?:\/\/(www\.)?instagram\.com\/[a-z0-9_\.]+\/?$/i.test(
+                        input.value
+                      )
+                    ) {
+                      giveAlert(
+                        alertMessage + input.nextElementSibling.textContent
+                      );
+                      validated = 0;
+                      return;
+                    }
+                  } else if (field === "yearsofexperience") {
+                    if (
+                      Number(input.value) > 0 &&
+                      Number(input.value) % 1 == 0
+                    ) {
+                      giveAlert(
+                        alertMessage + input.nextElementSibling.textContent
+                      );
+                      validated = 0;
+                      return;
+                    }
+                  } else if (field == "text" || field == "number") {
+                    if (!input.value) {
+                      giveAlert(
+                        alertMessage + input.nextElementSibling.textContent
+                      );
+                      validated = 0;
+                      return;
+                    }
+                  } else if (field == "url")
+                    if (!/^https?:\/\/\w+/.test(input.value)) {
+                      giveAlert(
+                        alertMessage + input.nextElementSibling.textContent
+                      );
+                      validated = 0;
+                      return;
+                    }
+            }
+
+            if (!validated) {
+              giveAlert("Please Fill Out all the fields");
+            }
           });
       });
     toggleLoader("this-is-loader");

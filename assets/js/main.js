@@ -170,3 +170,19 @@ if (!/dashBoard/gi.test(location.href)) {
     circle4.pause();
   }
 }
+const committees = [
+  "RAS Committee",
+  "WIE Committee",
+  "CS Committee",
+  "SIGHT Committee",
+  "HR Committee",
+  "Business development Committee",
+  "Logistics Committee",
+  "MultiMedia Committee",
+  "Marketing Committee",
+  "Event Management Committee",
+  "Training & Development Committee",
+  "Fundraising Committee",
+  "Entertainment Committee",
+  "Multimedia Committee",
+];
