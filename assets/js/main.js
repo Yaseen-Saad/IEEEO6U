@@ -27,16 +27,16 @@ function toggleLoader(id) {
   loader.classList.toggle("active");
 }
 
-async function view() {
-  db.collection("dashBoard")
-    .doc("views")
-    .update({ data: firebase.firestore.FieldValue.increment(1) });
-  sessionStorage.setItem("viewed", true);
-}
+// async function view() {
+//   db.collection("dashBoard")
+//     .doc("views")
+//     .update({ data: firebase.firestore.FieldValue.increment(1) });
+//   sessionStorage.setItem("viewed", true);
+// }
 
-onload = () => {
-  if (!sessionStorage.getItem("viewed")) view();
-};
+// onload = () => {
+//   if (!sessionStorage.getItem("viewed")) view();
+// };
 
 function limitWords(str, maxChars) {
   // remove whitespace at the beginning and end of the string
@@ -51,16 +51,16 @@ function limitWords(str, maxChars) {
   return str;
 }
 
-function calculateViews() {
-  db.collection("dashBoard")
-    .doc("views")
-    .get()
-    .then((snap) => {
-      visitors.textContent = snap.data().data;
-    });
-}
+// function calculateViews() {
+//   db.collection("dashBoard")
+//     .doc("views")
+//     .get()
+//     .then((snap) => {
+//       visitors.textContent = snap.data().data;
+//     });
+// }
 
-function giveAlert(alert, color, from) {
+function giveAlert(alert, color, from, clicky) {
   return new Promise((resolve, reject) => {
     let body = document.createElement("div"),
       text = document.createElement("p"),
@@ -77,22 +77,22 @@ function giveAlert(alert, color, from) {
     };padding:5px 10px;cursor:pointer;border:0;align-self:end;border-radius:10px;color:#fff;`;
     body.style.cssText =
       "display:flex;z-index:999999;padding:30px;align-items:start;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;max-width:90%;background-color:#fff;border-radius:5px;flex-direction:column;justify-content:space-evenly;";
-
-    overlay.addEventListener("click", function () {
-      body.remove();
-      overlay.remove();
-      resolve();
-    });
-    response.addEventListener("click", function () {
-      body.remove();
-      overlay.remove();
-      resolve();
-    });
+    if (!clicky) {
+      overlay.addEventListener("click", function () {
+        body.remove();
+        overlay.remove();
+        resolve();
+      });
+      response.addEventListener("click", function () {
+        body.remove();
+        overlay.remove();
+        resolve();
+      });
+    }
     body.append(admin, text, response);
     document.body.append(body, overlay);
   });
 }
-
 async function appendEvent(collection, append, neededData) {
   let collectionCondition = db.collection(collection),
     href;
@@ -133,7 +133,8 @@ async function appendEvent(collection, append, neededData) {
         eventArticle.append(eventImageDiv, eventData);
         append.append(eventArticle);
       });
-    });
+    })
+    .catch((error) => console.log(error));
 }
 if (!/dashBoard/gi.test(location.href)) {
   let animation = {

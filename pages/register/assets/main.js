@@ -222,7 +222,6 @@ if (doc) {
             });
             select.append(defualt, box);
             field.append(label, select);
-            console.log(field);
             field.setAttribute("fieldType", key.name);
             form.append(field);
             form.append(document.createElement("hr"));
@@ -334,10 +333,6 @@ if (doc) {
                 field === "jobtitle" ||
                 field === "address"
               ) {
-                console.log(
-                  /\d/.test(input.value) || input.value == "",
-                  /\d/.test(input.value)
-                );
                 if (/\d/.test(input.value) || input.value == "") {
                   giveAlert(
                     alertMessage + input.nextElementSibling.textContent
@@ -361,11 +356,22 @@ if (doc) {
                 field === "phone" ||
                 field === "whatsapp" ||
                 field === "phone"
-              )
+              ) {
                 if (input.value.length < 11) validated = 0;
-                else if (field === "linkedin")
+              } else if (field === "linkedin")
+                if (
+                  !/^https?:\/\/(www\.)?linkedin\.com\/(in|profile)\/[a-z0-9_-]+\/?$/i.test(
+                    input.value
+                  )
+                ) {
+                  giveAlert(
+                    alertMessage + input.nextElementSibling.textContent
+                  );
+                  validated = 0;
+                  return;
+                } else if (field === "facebook") {
                   if (
-                    !/^https?:\/\/(www\.)?linkedin\.com\/(in|profile)\/[a-z0-9_-]+\/?$/i.test(
+                    !/^https?:\/\/(www\.)?facebook\.com\/[a-z0-9\.]+\/?$/i.test(
                       input.value
                     )
                   ) {
@@ -374,61 +380,52 @@ if (doc) {
                     );
                     validated = 0;
                     return;
-                  } else if (field === "facebook") {
-                    if (
-                      !/^https?:\/\/(www\.)?facebook\.com\/[a-z0-9\.]+\/?$/i.test(
-                        input.value
-                      )
-                    ) {
-                      giveAlert(
-                        alertMessage + input.nextElementSibling.textContent
-                      );
-                      validated = 0;
-                      return;
-                    }
-                  } else if (field === "instagram") {
-                    if (
-                      !/^https?:\/\/(www\.)?instagram\.com\/[a-z0-9_\.]+\/?$/i.test(
-                        input.value
-                      )
-                    ) {
-                      giveAlert(
-                        alertMessage + input.nextElementSibling.textContent
-                      );
-                      validated = 0;
-                      return;
-                    }
-                  } else if (field === "yearsofexperience") {
-                    if (
-                      Number(input.value) > 0 &&
-                      Number(input.value) % 1 == 0
-                    ) {
-                      giveAlert(
-                        alertMessage + input.nextElementSibling.textContent
-                      );
-                      validated = 0;
-                      return;
-                    }
-                  } else if (field == "text" || field == "number") {
-                    if (!input.value) {
-                      giveAlert(
-                        alertMessage + input.nextElementSibling.textContent
-                      );
-                      validated = 0;
-                      return;
-                    }
-                  } else if (field == "url")
-                    if (!/^https?:\/\/\w+/.test(input.value)) {
-                      giveAlert(
-                        alertMessage + input.nextElementSibling.textContent
-                      );
-                      validated = 0;
-                      return;
-                    }
+                  }
+                } else if (field === "instagram") {
+                  if (
+                    !/^https?:\/\/(www\.)?instagram\.com\/[a-z0-9_\.]+\/?$/i.test(
+                      input.value
+                    )
+                  ) {
+                    giveAlert(
+                      alertMessage + input.nextElementSibling.textContent
+                    );
+                    validated = 0;
+                    return;
+                  }
+                } else if (field === "yearsofexperience") {
+                  if (Number(input.value) > 0 && Number(input.value) % 1 == 0) {
+                    giveAlert(
+                      alertMessage + input.nextElementSibling.textContent
+                    );
+                    validated = 0;
+                    return;
+                  }
+                } else if (field == "text" || field == "number") {
+                  if (!input.value) {
+                    giveAlert(
+                      alertMessage + input.nextElementSibling.textContent
+                    );
+                    validated = 0;
+                    return;
+                  }
+                } else if (field == "url")
+                  if (!/^https?:\/\/\w+/.test(input.value)) {
+                    giveAlert(
+                      alertMessage + input.nextElementSibling.textContent
+                    );
+                    validated = 0;
+                    return;
+                  }
             }
-
             if (!validated) {
               giveAlert("Please Fill Out all the fields");
+            } else {
+              giveAlert(
+                "your data has been added successfully, see you soon",
+                "#2ecc71"
+              );
+              // db.collection("registered-events").add(userData);
             }
           });
       });

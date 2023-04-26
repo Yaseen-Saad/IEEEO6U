@@ -9,7 +9,6 @@ if (doc) {
       .get()
       .then((doc) => {
         const event = doc.data();
-        console.log(event);
         const eventImage = document.createElement("img");
         eventImage.src = event.eventImage;
 

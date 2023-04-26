@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../../../../assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="../../../../assets/css/adminsloading.css" />
+  </head>
+  <body>
+    <section id="loader">
+      <div class="word">LOADING...</div>
+      <div id="overlayier"></div>
+    </section>
+    <h2 id="title">What do you want to remove :</h2>
+    <section class="remove-options">
+      <article collection="events">event</article>
+      <article collection="officers">officer</article>
+      <article collection="Workshops">workshop</article>
+      <article collection="Projects">project</article>
+      <article collection="best-members">best member</article>
+      <article collection="partners">partner</article>
+    </section>
+    <section class="remove-section"></section>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+    <script src="../../../../assets/js/main.js"></script>
+    <script src="../../../../govs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lettering.js/0.6.1/jquery.lettering.min.js"></script>
+    <script src="../../assets/js/dash-main.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

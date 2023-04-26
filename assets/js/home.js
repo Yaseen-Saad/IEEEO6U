@@ -93,7 +93,6 @@
         if (upcomingEvents % 2 == 0) {
           EventParent.append(EventDiv, EventImageDiv);
         } else {
-          console.log("done");
           EventParent.append(EventImageDiv, EventDiv);
         }
         upEvents[0].append(EventParent);

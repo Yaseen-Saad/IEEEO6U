@@ -1,763 +1,85 @@
-function filesViewer(fileInput, multiple) {
-  fileInput.addEventListener("change", async () => {
-    const p = fileInput.nextElementSibling.nextElementSibling;
-    if (multiple) {
-      p.textContent = "";
-      for (const file of fileInput.files) {
-        p.textContent += fileInput.files.length
-          ? `${file.name}, `
-          : "No File Selected";
-      }
-    } else
-      p.textContent = fileInput.files.length
-        ? fileInput.files[0].name
-        : "No File Selected";
-  });
+const submit = document.getElementById("unique_button");
+function authorized() {
+  document.body.innerHTML = `
+    <section class="right">
+      <div class="overview">
+        <article>
+          <i class="fa fa-eye"></i> <span id="visitors"></span>Total Visitors
+        </article>
+        <article>
+          <i class="fa fa-users"></i> <span>00999</span>total members
+        </article>
+        <article>
+          <i class="fa-solid fa-envelope"></i> <span>99900</span>total
+          registrations
+        </article>
+        <article><i class="fa fa-user"></i> <span>90909</span> sample</article>
+      </div>
+      <section class="sections">
+        <a href="./pages/add/">
+          <article class="card">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+              <path
+                d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+              />
+            </svg>
+            <p>add</p>
+          </article>
+        </a>
+        <a href="./pages/remove/">
+          <article class="card">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+              <path
+                d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+              />
+            </svg>
+            <p>remove</p>
+          </article>
+        </a>
+        <a href="./pages/edit/">
+          <article class="card">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+                d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"
+              />
+            </svg>
+            <p>edit</p>
+          </article>
+        </a>
+        <a href="./pages/registered/">
+          <article class="card">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+              <path
+                d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z"
+              />
+            </svg>
+            <p>registered data</p>
+          </article>
+        </a>
+      </section>
+    </section>
+    `;
 }
 
-calculateViews();
-filesViewer(document.getElementById("EVENTIMG"), false);
-filesViewer(document.getElementById("EVENTIMGs"), true);
-filesViewer(document.getElementById("projectsImg"), false);
-filesViewer(document.getElementById("projectsImgs"), true);
-filesViewer(document.getElementById("WorkshopImg"), false);
-filesViewer(document.getElementById("WorkshopsImgs"), true);
-filesViewer(document.getElementById("officerImage"), false);
-filesViewer(document.getElementById("MemberImage"), false);
-filesViewer(document.getElementById("partnerImage"), false);
-const registrationCheckBoxForEvent = document.getElementById(
-    "registrationForEvent"
-  ),
-  registrationCheckBoxForProject = document.getElementById(
-    "registrationForProject"
-  ),
-  registrationCheckBoxForWorkshops = document.getElementById(
-    "registrationForWorkshop"
-  ),
-  addEventForm = document.querySelector("form#events-form"),
-  addProjectForm = document.querySelector("form#projects-form"),
-  addWorkshopForm = document.querySelector("form#Workshops-form"),
-  eventsOptionsContainer = document.createElement("div"),
-  projectsOptionsContainer = document.createElement("div"),
-  workshopsOptionsContainer = document.createElement("div"),
-  defaultFields = [
-    "First Name",
-    "Last Name",
-    "Email",
-    "Phone",
-    "Whatsapp",
-    "LinkedIn",
-    "Facebook",
-    "Instagram",
-    "University",
-    "Faculty",
-    "Age",
-    "Job Title",
-    "Committee",
-    "Address",
-    "Gender",
-    "Years Of Experience",
-    "TShirt Size",
-    "Location",
-  ],
-  optionalFields = [
-    { type: "text", label: "Text" },
-    { type: "tel", label: "Phone" },
-    { type: "number", label: "Number" },
-    { type: "url", label: "URL" },
-    { type: "select", label: "Select Box" },
-  ];
-
-const handleRegistrationChange = (e, checkBox, form, optionsContainer) => {
-  optionsContainer.id = "options";
-  optionsContainer.innerHTML = "";
-  console.log(checkBox);
-  if (checkBox.checked) {
-    let html = "";
-    for (const field of defaultFields) {
-      html += `<div><input type="checkbox" id="${field}"><label for="${field}">${field}</label></div>`;
-    }
-
-    html += `<p>Customize Fields</p>`;
-    for (const field of optionalFields) {
-      html += `
-        <div>
-          <div>
-            <input type="checkbox" id="${field.type}">
-            <label for="${field.type}">${field.label}</label>
-          </div>
-          <input type="text" placeholder="${
-            field.type === "select"
-              ? "Name, options separated by commas (,)"
-              : "Name"
-          }">
-        </div>
-      `;
-    }
-
-    optionsContainer.innerHTML = html;
-    form.insertBefore(optionsContainer, form.lastElementChild);
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    authorized();
   }
-};
-
-registrationCheckBoxForWorkshops.addEventListener("change", () => {
-  handleRegistrationChange(
-    event,
-    registrationCheckBoxForWorkshops,
-    addWorkshopForm,
-    workshopsOptionsContainer
-  );
 });
-
-
-registrationCheckBoxForEvent.addEventListener("change", () => {
-  handleRegistrationChange(
-    event,
-    registrationCheckBoxForEvent,
-    addEventForm,
-    eventsOptionsContainer
-  );
-});
-registrationCheckBoxForProject.addEventListener("change", () => {
-  handleRegistrationChange(
-    event,
-    registrationCheckBoxForProject,
-    addProjectForm,
-    projectsOptionsContainer
-  );
-});
-
-async function addImagesToDataBase(file, event) {
-  const EventimageId = file.name;
-  const EventimageRefernce = `events/${event}/${EventimageId}`;
-
-  // connecting the database storage
-  const storageRef = firebase.storage().ref();
-  const imageRef = storageRef.child(EventimageRefernce);
-  try {
-    // Upload the file to Firebase Storage
-    const snapshot = await imageRef.put(file);
-
-    // Get the download URL of the uploaded file
-    const downloadURL = await snapshot.ref.getDownloadURL();
-
-    // Add the image URL to a document in Firestore
-    const docRef = await db.collection("images").add({
-      url: downloadURL,
+submit.addEventListener("click", (e) => {
+  e.preventDefault();
+  const email = document.forms[0].children[0].value,
+    password = document.forms[0].children[1].value;
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed in
+      authorized();
+      calculateViews();
+      return userCredential.user.getIdToken();
+    })
+    .catch((error) => {
+      giveAlert(error.message, "#ff5733");
     });
-    return docRef.id;
-  } catch (error) {
-    console.error("Error uploading image:", error);
-    throw error;
-  }
-}
-
-async function uploadImageToStorage(file, reference) {
-  const storageRef = firebase.storage().ref();
-  const imageRef = storageRef.child(reference);
-  try {
-    const snapshot = await imageRef.put(file);
-    const downloadUrl = await snapshot.ref.getDownloadURL();
-    return downloadUrl;
-  } catch (error) {
-    console.error("Error uploading image:", error);
-    throw new Error("Error uploading image");
-  }
-}
-
-async function addDocToCollection(collection, doc) {
-  try {
-    await db.collection(collection).add(doc);
-  } catch (error) {
-    console.error("Error adding event to database:", error);
-  }
-}
-
-async function AddEvent(e) {
-  e.preventDefault();
-  const eventName = addEventForm.children[1].children[0].value,
-    eventDesc = addEventForm.children[2].children[0].value,
-    eventImage = addEventForm.children[3].children[0].files[0],
-    additionalImages = addEventForm.children[4].children[0].files;
-  let neededData = [];
-  let event = {};
-
-  // Validate required fields
-
-  if (!eventName) {
-    giveAlert("Please enter a valid event name.", "#0a6a9c");
-    return;
-  }
-  if (!eventDesc) {
-    giveAlert("Event description cannot be empty.", "#0a6a9c");
-    return;
-  }
-  if (!eventImage) {
-    giveAlert("Please choose an event image.", "#0a6a9c");
-    return;
-  }
-  toggleLoader("loader");
-  if (registrationCheckBoxForEvent.checked) {
-    const getFields = (options) => {
-      return options
-        .filter((option) => option.checked)
-        .map((option) =>
-          option.nextSibling.textContent
-            .split(" ")
-            .map((word) =>
-              word.toLowerCase() == word ? word : word.toLowerCase()
-            )
-            .join("")
-        )
-        .map((field) => `${field}`);
-    };
-    neededData = getFields([
-      ...document.querySelectorAll("#options > div > input[type=checkbox]"),
-    ]);
-    const customFields = [
-      ...document.querySelectorAll(
-        "#options > div > div > input[type=checkbox]"
-      ),
-    ]
-      .map((field) => {
-        if (!field.checked) {
-          return null;
-        }
-        const fieldName = field.parentElement.nextElementSibling.value;
-        if (!fieldName) {
-          giveAlert(
-            `You must choose your ${field.nextElementSibling.textContent} name`,
-            "#0a6a9c"
-          );
-          return null;
-        }
-        if (field.id == "select") {
-          const fieldName =
-            field.parentElement.nextElementSibling.value.split(",")[0];
-          console.log(fieldName);
-          let options = field.parentElement.nextElementSibling.value.split(",");
-          options.shift();
-          options = options.map((option) => option.trim());
-          return { type: "dropDown", name: fieldName, options: options };
-        } else {
-          const fieldType = field.nextElementSibling.textContent
-            .split(" ")
-            .map((word) =>
-              word.toLowerCase() == word ? word : word.toLowerCase()
-            )
-            .join("");
-          return { type: fieldType, name: fieldName };
-        }
-      })
-      .filter((field) => field !== null);
-    console.log(customFields);
-    neededData.push(...customFields);
-  }
-
-  // Upload event image
-  const eventImageName = `${eventName}.${eventImage.name.split(".").pop()}`;
-  const eventImageReference = `events/${eventName}/${eventImageName}`;
-  const eventImageUrl = await uploadImageToStorage(
-    eventImage,
-    eventImageReference
-  );
-
-  // Upload additional images
-  const additionalImageUrls = await Promise.all(
-    [...additionalImages].map((file) => {
-      const additionalImageName = file.name;
-      const additionalImageReference = `events/${eventName}/${additionalImageName}`;
-      return uploadImageToStorage(file, additionalImageReference);
-    })
-  );
-
-  // Convert the Markdown to HTML using markdown-it
-
-  eventDesc;
-  const md = window.markdownit();
-
-  const HTMLeventDesc = md.render(eventDesc);
-
-  // Update event object
-
-  event.eventName = eventName;
-  event.eventDescription = HTMLeventDesc;
-  event.eventImage = eventImageUrl;
-  event.eventAdditionalImages = additionalImageUrls;
-  event.dateCreated = firebase.firestore.FieldValue.serverTimestamp();
-  event.neededData = neededData;
-
-  // Add event to database
-  await addDocToCollection("events", event);
-  toggleLoader("loader");
-  giveAlert("event added successfully");
-}
-
-addEventForm.addEventListener("submit", AddEvent);
-
-const addOfficerForm = document.querySelector("form#officers-form");
-
-async function AddOfficer(e) {
-  e.preventDefault();
-  const officerName = addOfficerForm.children[1].children[0].value,
-    officerRole = addOfficerForm.children[2].children[0].value,
-    officerImage = addOfficerForm.children[3].children[0],
-    officerFace = addOfficerForm.children[4].children[0].value,
-    officerLinked = addOfficerForm.children[5].children[0].value,
-    officerPhone = addOfficerForm.children[6].children[0].value;
-  if (!officerName) {
-    giveAlert("Please enter a valid officer name.", "#0a6a9c");
-    return;
-  }
-  if (!officerRole) {
-    giveAlert("Please enter a valid officer role.", "#0a6a9c");
-    return;
-  }
-  if (!officerImage.value) {
-    giveAlert("Please enter a valid officer Image.", "#0a6a9c");
-    return;
-  }
-  if (!officerFace) {
-    giveAlert("Please enter a valid officer FaceBook.", "#0a6a9c");
-    return;
-  }
-  if (!officerLinked) {
-    giveAlert("Please enter a valid officer Linked In.", "#0a6a9c");
-    return;
-  }
-  if (!officerPhone) {
-    giveAlert("Please enter a valid officer Phone.", "#0a6a9c");
-    return;
-  }
-  toggleLoader("loader");
-  let officerImageUrl = await uploadImageToStorage(
-    officerImage.files[0],
-    `officers/${officerName}.${officerImage.files[0].name.split(".").pop()}`
-  );
-  await addDocToCollection("officers", {
-    officerName: officerName,
-    officerRole: officerRole,
-    officerImage: officerImageUrl,
-    officerFace: officerFace,
-    officerPhone: officerPhone,
-    officerLinked: officerLinked,
-  });
-  toggleLoader("loader");
-  giveAlert("officer added successfully");
-}
-
-addOfficerForm.addEventListener("submit", AddOfficer);
-
-const addPartnerForm = document.querySelector("form#partners-form");
-async function AddPartner(e) {
-  e.preventDefault();
-
-  const partnerName = addPartnerForm.children[1].children[0].value,
-    partnerImage = addPartnerForm.children[2].children[0];
-  if (!partnerName) {
-    giveAlert("Please enter a valid partner name.", "#0a6a9c");
-    return;
-  }
-  if (!partnerImage.value) {
-    giveAlert("Please enter a valid partner Image.", "#0a6a9c");
-    return;
-  }
-  toggleLoader("loader");
-
-  const partnerImageUrl = await uploadImageToStorage(
-    partnerImage.files[0],
-    `partners/${partnerName}.${partnerImage.files[0].name.split(".").pop()}`
-  );
-  await addDocToCollection("partners", {
-    partnerName: partnerName,
-    partnerImage: partnerImageUrl,
-  });
-
-  toggleLoader("loader");
-  giveAlert("partner added successfully");
-}
-addPartnerForm.addEventListener("submit", AddPartner);
-
-const addBestMemberForm = document.querySelector("form#best-members-form");
-async function AddBestMember(e) {
-  e.preventDefault();
-
-  const BestMemberName = addBestMemberForm.children[1].children[0].value,
-    BestMemberRole = addBestMemberForm.children[2].children[0].value,
-    BestMemberImage = addBestMemberForm.children[3].children[0],
-    BestMemberFace = addBestMemberForm.children[4].children[0].value,
-    BestMemberLinked = addBestMemberForm.children[5].children[0].value,
-    BestMemberPhone = addBestMemberForm.children[6].children[0].value;
-
-  if (!BestMemberName) {
-    giveAlert("Please enter a valid Member name.", "#0a6a9c");
-    return;
-  }
-  if (!BestMemberRole) {
-    giveAlert("Please enter a valid Member committee.", "#0a6a9c");
-
-    return;
-  }
-  if (!BestMemberImage.value) {
-    giveAlert("Please enter a valid Member Image.", "#0a6a9c");
-    return;
-  }
-  if (!BestMemberFace) {
-    giveAlert("Please enter a valid Member FaceBook.", "#0a6a9c");
-    return;
-  }
-  if (!BestMemberLinked) {
-    giveAlert("Please enter a valid Member Linked In.", "#0a6a9c");
-    return;
-  }
-  if (!BestMemberPhone) {
-    giveAlert("Please enter a valid Member Phone.", "#0a6a9c");
-    return;
-  }
-  toggleLoader("loader");
-
-  let BestMemberImageUrl = await uploadImageToStorage(
-    BestMemberImage.files[0],
-    `BestMembers/${BestMemberName}.${BestMemberImage.files[0].name
-      .split(".")
-      .pop()}`
-  );
-  await addDocToCollection("best-members", {
-    BestMemberName: BestMemberName,
-    BestMemberRole: BestMemberRole,
-    BestMemberImage: BestMemberImageUrl,
-    BestMemberFace: BestMemberFace,
-    BestMemberPhone: BestMemberPhone,
-    BestMemberLinked: BestMemberLinked,
-  });
-  toggleLoader("loader");
-  giveAlert("Best Member added successfully");
-}
-addBestMemberForm.addEventListener("submit", AddBestMember);
-
-async function addProject(e) {
-  e.preventDefault();
-  const ProjectName = addProjectForm.children[1].children[0].value,
-    ProjectDesc = addProjectForm.children[2].children[0].value,
-    ProjectImage = addProjectForm.children[3].children[0].files[0],
-    additionalImages = addProjectForm.children[4].children[0].files;
-  let neededData = [];
-  let Project = {};
-
-  // Validate required fields
-
-  if (!ProjectName) {
-    giveAlert("Please enter a valid Project name.", "#0a6a9c");
-    return;
-  }
-  if (!ProjectDesc) {
-    giveAlert("project description cannot be empty.", "#0a6a9c");
-    return;
-  }
-  if (!ProjectImage) {
-    giveAlert("Please choose an Project image.", "#0a6a9c");
-    return;
-  }
-  toggleLoader("loader");
-  if (registrationCheckBoxForProject.checked) {
-    const getFields = (options) => {
-      return options
-        .filter((option) => option.checked)
-        .map((option) =>
-          option.nextSibling.textContent
-            .split(" ")
-            .map((word) =>
-              word.toLowerCase() == word ? word : word.toLowerCase()
-            )
-            .join("")
-        )
-        .map((field) => `${field}`);
-    };
-    neededData = getFields([
-      ...document.querySelectorAll("#options > div > input[type=checkbox]"),
-    ]);
-    const customFields = [
-      ...document.querySelectorAll(
-        "#options > div > div > input[type=checkbox]"
-      ),
-    ]
-      .map((field) => {
-        if (!field.checked) {
-          return null;
-        }
-        const fieldName = field.parentElement.nextElementSibling.value;
-        if (!fieldName) {
-          giveAlert(
-            `You must choose your ${field.nextElementSibling.textContent} name`,
-            "#0a6a9c"
-          );
-          return null;
-        }
-        if (field.id == "select") {
-          const fieldName =
-            field.parentElement.nextElementSibling.value.split(",")[0];
-          console.log(fieldName);
-          let options = field.parentElement.nextElementSibling.value.split(",");
-          options.shift();
-          options = options.map((option) => option.trim());
-          return { type: "dropDown", name: fieldName, options: options };
-        } else {
-          const fieldType = field.nextElementSibling.textContent
-            .split(" ")
-            .map((word) =>
-              word.toLowerCase() == word ? word : word.toLowerCase()
-            )
-            .join("");
-          return { type: fieldType, name: fieldName };
-        }
-      })
-      .filter((field) => field !== null);
-    console.log(customFields);
-    neededData.push(...customFields);
-  }
-
-  // Upload event image
-  const ProjectImageName = `${ProjectName}.${ProjectImage.name
-    .split(".")
-    .pop()}`;
-  const ProjectImageReference = `ProjectsProject/${ProjectName}/${ProjectImageName}`;
-  const ProjectImageUrl = await uploadImageToStorage(
-    ProjectImage,
-    ProjectImageReference
-  );
-
-  // Upload additional images
-  const additionalImageUrls = await Promise.all(
-    [...additionalImages].map((file) => {
-      const additionalImageName = file.name;
-      const additionalImageReference = `Projects/${ProjectName}/${additionalImageName}`;
-      return uploadImageToStorage(file, additionalImageReference);
-    })
-  );
-
-  // Convert the Markdown to HTML using markdown-it
-
-  const md = window.markdownit();
-
-  const HTMLeventDesc = md.render(ProjectDesc);
-
-  // Update event object
-
-  Project.eventName = ProjectName;
-  Project.eventDescription = HTMLeventDesc;
-  Project.eventImage = ProjectImageUrl;
-  Project.eventAdditionalImages = additionalImageUrls;
-  Project.dateCreated = firebase.firestore.FieldValue.serverTimestamp();
-  Project.neededData = neededData;
-  console.log(Project);
-  // Add event to database
-  await addDocToCollection("Projects", Project);
-  toggleLoader("loader");
-  giveAlert("Project added successfully");
-}
-
-addProjectForm.addEventListener("submit", addProject);
-
-async function addWorkshop(e) {
-  e.preventDefault();
-  const WorkshopName = addWorkshopForm.children[1].children[0].value,
-    WorkshopDesc = addWorkshopForm.children[2].children[0].value,
-    WorkshopImage = addWorkshopForm.children[3].children[0].files[0],
-    additionalImages = addWorkshopForm.children[4].children[0].files;
-  let neededData = [];
-  let Workshop = {};
-  // Validate required fields
-
-  if (!WorkshopName) {
-    giveAlert("Please enter a valid Workshop name.", "#0a6a9c");
-    return;
-  }
-  if (!WorkshopDesc) {
-    giveAlert("Workshop description cannot be empty.", "#0a6a9c");
-    return;
-  }
-  if (!WorkshopImage) {
-    giveAlert("Please choose an Workshop image.", "#0a6a9c");
-    return;
-  }
-  toggleLoader("loader");
-  if (registrationCheckBoxForWorkshops.checked) {
-    const getFields = (options) => {
-      return options
-        .filter((option) => option.checked)
-        .map((option) =>
-          option.nextSibling.textContent
-            .split(" ")
-            .map((word) =>
-              word.toLowerCase() == word ? word : word.toLowerCase()
-            )
-            .join("")
-        )
-        .map((field) => `${field}`);
-    };
-    neededData = getFields([
-      ...document.querySelectorAll("#options > div > input[type=checkbox]"),
-    ]);
-    const customFields = [
-      ...document.querySelectorAll(
-        "#options > div > div > input[type=checkbox]"
-      ),
-    ]
-      .map((field) => {
-        if (!field.checked) {
-          return null;
-        }
-        const fieldName = field.parentElement.nextElementSibling.value;
-        if (!fieldName) {
-          giveAlert(
-            `You must choose your ${field.nextElementSibling.textContent} name`,
-            "#0a6a9c"
-          );
-          return null;
-        }
-        if (field.id == "select") {
-          const fieldName =
-            field.parentElement.nextElementSibling.value.split(",")[0];
-          let options = field.parentElement.nextElementSibling.value.split(",");
-          options.shift();
-          options = options.map((option) => option.trim());
-          return { type: "dropDown", name: fieldName, options: options };
-        } else {
-          const fieldType = field.nextElementSibling.textContent
-            .split(" ")
-            .map((word) =>
-              word.toLowerCase() == word ? word : word.toLowerCase()
-            )
-            .join("");
-          return { type: fieldType, name: fieldName };
-        }
-      })
-      .filter((field) => field !== null);
-    console.log(customFields);
-    neededData.push(...customFields);
-  }
-
-  // Upload event image
-  const WorkshopImageName = `${WorkshopName}.${WorkshopImage.name
-    .split(".")
-    .pop()}`;
-  const WorkshopImageReference = `Workshops/${WorkshopName}/${WorkshopName}`;
-  const WorkshopImageUrl = await uploadImageToStorage(
-    WorkshopImage,
-    WorkshopImageReference
-  );
-
-  // Upload additional images
-  const additionalImageUrls = await Promise.all(
-    [...additionalImages].map((file) => {
-      const additionalImageName = file.name;
-      const additionalImageReference = `Workshops/${WorkshopName}/${additionalImageName}`;
-      return uploadImageToStorage(file, additionalImageReference);
-    })
-  );
-
-  // Convert the Markdown to HTML using markdown-it
-
-  const md = window.markdownit();
-
-  const HTMLeventDesc = md.render(WorkshopDesc);
-
-  // Update event object
-
-  Workshop.eventName = WorkshopName;
-  Workshop.eventDescription = HTMLeventDesc;
-  Workshop.eventImage = WorkshopImageUrl;
-  Workshop.eventAdditionalImages = additionalImageUrls;
-  Workshop.dateCreated = firebase.firestore.FieldValue.serverTimestamp();
-  Workshop.neededData = neededData;
-  console.log(Workshop);
-  // Add event to database
-  await addDocToCollection("Workshops", Workshop);
-  toggleLoader("loader");
-  giveAlert("Workshop added successfully");
-}
-
-addWorkshopForm.addEventListener("submit", addWorkshop);
-
-function Ticker(elem) {
-  elem.lettering();
-  this.done = false;
-  this.cycleCount = 5;
-  this.cycleCurrent = 0;
-  this.chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-_=+{}|[]\\;':\"<>?,./`~".split(
-      ""
-    );
-  this.charsCount = this.chars.length;
-  this.letters = elem.find("span");
-  this.letterCount = this.letters.length;
-  this.letterCurrent = 0;
-
-  this.letters.each(function () {
-    var $this = $(this);
-    $this.attr("data-orig", $this.text());
-    $this.text("-");
-  });
-}
-
-Ticker.prototype.getChar = function () {
-  return this.chars[Math.floor(Math.random() * this.charsCount)];
-};
-
-Ticker.prototype.reset = function () {
-  this.done = false;
-  this.cycleCurrent = 0;
-  this.letterCurrent = 0;
-  this.letters.each(function () {
-    var $this = $(this);
-    $this.text($this.attr("data-orig"));
-    $this.removeClass("done");
-  });
-  this.loop();
-};
-
-Ticker.prototype.loop = function () {
-  var self = this;
-
-  this.letters.each(function (index, elem) {
-    var $elem = $(elem);
-    if (index >= self.letterCurrent) {
-      if ($elem.text() !== " ") {
-        $elem.text(self.getChar());
-        $elem.css("opacity", Math.random());
-      }
-    }
-  });
-
-  if (this.cycleCurrent < this.cycleCount) {
-    this.cycleCurrent++;
-  } else if (this.letterCurrent < this.letterCount) {
-    var currLetter = this.letters.eq(this.letterCurrent);
-    this.cycleCurrent = 0;
-    currLetter
-      .text(currLetter.attr("data-orig"))
-      .css("opacity", 1)
-      .addClass("done");
-    this.letterCurrent++;
-  } else {
-    this.done = true;
-  }
-
-  if (!this.done) {
-    requestAnimationFrame(function () {
-      self.loop();
-    });
-  } else {
-    setTimeout(function () {
-      self.reset();
-    }, 750);
-  }
-};
-
-$words = $(".word");
-
-$words.each(function () {
-  var $this = $(this),
-    ticker = new Ticker($this).reset();
-  $this.data("ticker", ticker);
 });
