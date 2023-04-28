@@ -27,16 +27,16 @@ function toggleLoader(id) {
   loader.classList.toggle("active");
 }
 
-// async function view() {
-//   db.collection("dashBoard")
-//     .doc("views")
-//     .update({ data: firebase.firestore.FieldValue.increment(1) });
-//   sessionStorage.setItem("viewed", true);
-// }
+async function view() {
+  db.collection("dashBoard")
+    .doc("views")
+    .update({ data: firebase.firestore.FieldValue.increment(1) });
+  sessionStorage.setItem("viewed", true);
+}
 
-// onload = () => {
-//   if (!sessionStorage.getItem("viewed")) view();
-// };
+onload = () => {
+  if (!sessionStorage.getItem("viewed")) view();
+};
 
 function limitWords(str, maxChars) {
   // remove whitespace at the beginning and end of the string
@@ -50,15 +50,6 @@ function limitWords(str, maxChars) {
   // count the number of words
   return str;
 }
-
-// function calculateViews() {
-//   db.collection("dashBoard")
-//     .doc("views")
-//     .get()
-//     .then((snap) => {
-//       visitors.textContent = snap.data().data;
-//     });
-// }
 
 function giveAlert(alert, color, from, clicky) {
   return new Promise((resolve, reject) => {
@@ -187,3 +178,18 @@ const committees = [
   "Entertainment Committee",
   "Multimedia Committee",
 ];
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    user
+      .getIdToken()
+      .then((token) => {
+        if ((localStorage.getItem(token) - Date.now()) / 1000 <= 0) {
+          firebase.auth().signOut();
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+});

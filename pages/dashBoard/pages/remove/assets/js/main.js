@@ -70,11 +70,9 @@ object.remove()
       }
     });
   } else {
-    giveAlert(
-      "hughhhh are kidding me bro ?",
-      "#ff5733",
-      "the developer says",
-      1
-    );
+    giveAlert("PLEASE SIGN IN AGAIN", "#ff5733", "the developer says", 1);
+    setTimeout(() => {
+      location.href = "../../";
+    }, 3000);
   }
 });

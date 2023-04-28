@@ -421,11 +421,15 @@ if (doc) {
             if (!validated) {
               giveAlert("Please Fill Out all the fields");
             } else {
+              db.collection("registered-events").add({
+                ...userData,
+                doc: doc,
+                collection: collection,
+              });
               giveAlert(
                 "your data has been added successfully, see you soon",
                 "#2ecc71"
               );
-              // db.collection("registered-events").add(userData);
             }
           });
       });

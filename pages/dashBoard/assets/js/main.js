@@ -1,5 +1,5 @@
 const submit = document.getElementById("unique_button");
-function authorized() {
+async function authorized() {
   document.body.innerHTML = `
     <section class="right">
       <div class="overview">
@@ -10,7 +10,7 @@ function authorized() {
           <i class="fa fa-users"></i> <span>00999</span>total members
         </article>
         <article>
-          <i class="fa-solid fa-envelope"></i> <span>99900</span>total
+          <i class="fa-solid fa-envelope"></i> <span id="registries">99900</span>total
           registrations
         </article>
         <article><i class="fa fa-user"></i> <span>90909</span> sample</article>
@@ -59,9 +59,29 @@ function authorized() {
       </section>
     </section>
     `;
+  async function calculateViews() {
+    db.collection("dashBoard")
+      .doc("views")
+      .get()
+      .then((snap) => {
+        visitors.textContent = snap.data().data;
+      });
+  }
+
+  calculateViews();
+
+  async function registered() {
+    return await db
+      .collection("registered-events")
+      .get()
+      .then((query) => query.size);
+  }
+
+  registries.textContent = await registered();
 }
 
 firebase.auth().onAuthStateChanged(function (user) {
+  console.log(user);
   if (user) {
     authorized();
   }
@@ -70,16 +90,76 @@ submit.addEventListener("click", (e) => {
   e.preventDefault();
   const email = document.forms[0].children[0].value,
     password = document.forms[0].children[1].value;
+
+  // Set the expiration time to 30 minutes
+  const expiresIn = 3600;
+
+  // Sign in the user with Firebase Auth
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
+      // Get the user and token result
+      const user = userCredential.user;
+      user.getIdTokenResult().then((idTokenResult) => {
+        // Calculate the expiration time
+        const authTime = idTokenResult.authTime;
+        const date = new Date(authTime);
+        localStorage.setItem(
+          idTokenResult.token,
+          date.setMilliseconds(date.getMilliseconds() + expiresIn * 1000)
+        );
+      });
+    })
+    .catch((error) => {
+      console.log(error.message);
+    });
+
+  // const expiresIn = 1800; // 30 minutes in seconds
+  // firebase
+  //   .auth()
+  //   .signInWithEmailAndPassword(email, password)
+  //   .then((userCredential) => {
+  //     const user = userCredential.user;
+  //     user.getIdTokenResult().then((idTokenResult) => {
+  //       const authTime = idTokenResult.authTime;
+  //       const expirationTime = authTime + expiresIn * 1000;
+  //       const rememberMe = 0; // set to true to keep user signed in after browser is closed
+  //       firebase
+  //         .auth()
+  //         .setPersistence(
+  //           rememberMe
+  //             ? firebase.auth.Auth.Persistence.LOCAL
+  //             : firebase.auth.Auth.Persistence.SESSION
+  //         )
+  //         .then(() => {
+  //           return firebase.auth().signInWithEmailAndPassword(email, password);
+  //         })
+  //         .then(() => {
+  //           // User is signed in for the next 30 minutes
+  //         })
+  //         .catch((error) => {
+  //           console.log(error.message);
+  //         });
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     console.log(error.message);
+  //   });
+
+  /*   firebase
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
       // Signed in
+      loc
       authorized();
       calculateViews();
       return userCredential.user.getIdToken();
     })
     .catch((error) => {
       giveAlert(error.message, "#ff5733");
-    });
+    }); */
 });
+
+// Get the currently signed-in user
