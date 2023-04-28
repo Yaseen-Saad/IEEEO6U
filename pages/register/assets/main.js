@@ -333,7 +333,7 @@ if (doc) {
                 field === "jobtitle" ||
                 field === "address"
               ) {
-                if (/\d/.test(input.value) || input.value == "") {
+                if (input.value == "") {
                   giveAlert(
                     alertMessage + input.nextElementSibling.textContent
                   );
@@ -425,6 +425,19 @@ if (doc) {
                 ...userData,
                 doc: doc,
                 collection: collection,
+                registeredTime: new Date(Date.now()).toLocaleDateString(
+                  "en-US",
+                  {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                    second: "numeric",
+                    hour12: true,
+                  }
+                ),
               });
               giveAlert(
                 "your data has been added successfully, see you soon",

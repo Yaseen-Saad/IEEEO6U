@@ -44,24 +44,51 @@ firebase.auth().onAuthStateChanged(function (user) {
               deleteButton.textContent = "DELETE !";
               deleteButton.addEventListener("click", function (e) {
                 const object = this.parentNode;
-                db
-                  .collection(
-                    object.getAttribute("COLLECTION")
-                  )
+                db.collection(object.getAttribute("COLLECTION"))
                   .doc(object.getAttribute("DOCID"))
                   .delete()
                   .then(() => {
                     giveAlert("Object successfully deleted!");
-object.remove()
+                    object.remove();
                   })
                   .catch((error) => {
                     console.error("Error deleting document: ", error);
                   });
+
+                if (object.getAttribute("regis")) {
+                  (async () => {
+                    console.log(object.getAttribute("regis"));
+                    console.log(object.getAttribute("DOCID"));
+                    console.log(object.getAttribute("COLLECTION"));
+                    await db
+                      .collection("registered-events")
+                      .where("doc", "==", object.getAttribute("DOCID"))
+                      .where(
+                        "collection",
+                        "==",
+                        object.getAttribute("COLLECTION")
+                      )
+                      .get()
+                      .then((snap) => {
+                        snap.forEach((doc) => {
+                          console.log(doc.data());
+                          doc.ref.delete();
+                        });
+                      })
+                      .catch((error) => {
+                        console.error("Error deleting document: ", error);
+                      });
+                  })();
+                }
+                giveAlert("Object successfully deleted!");
+                object.remove();
+
                 //code here ...
               });
               const article = document.createElement("article");
               article.setAttribute("DOCID", doc.id);
               article.setAttribute("COLLECTION", collection);
+              article.setAttribute("regis", element.neededData.length);
               article.append(image, title, desc, deleteButton);
 
               cont.append(article);
