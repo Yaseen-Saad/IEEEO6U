@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;500;600;700&display=swap");
+.cont:has(nav) {
+  position: absolute;
+  left: 50%;
+  z-index: 2000;
+  transform: translateX(-50%);
+}
+.cont:has(nav) nav {
+  border-radius: 20px;
+  padding-inline: 30px;
+  background-color: transparent !important;
+}
+.cont:has(nav) nav li a {
+  color: #fff !important;
+}
+.cont:has(nav) nav li div p a {
+  color: #000 !important;
+}
+.cont:has(nav) nav li div {
+  background-color: #fff !important;
+}
+
+section#land {
+  max-height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 100vh;
+  overflow: clip;
+  width: 100%;
+  flex-direction: column;
+}
+section#land h2 {
+  font-size: 2.4rem;
+}
+section#land h2,
+section#land p {
+  margin: 4px;
+  color: #fff;
+  text-align: center;
+}
+section#land #img {
+  z-index: -2;
+  background-image: url(../../../../assets/images/313408184_484656983698243_870673337600810014_n.jpg);
+  position: absolute;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0 !important;
+}
+section#land .overlay {
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2549019608);
+}
+
+#form {
+  padding-inline: 5%;
+  margin-block: 50px;
+}
+#form p {
+  font-size: 1.5rem;
+  text-align: center;
+}
+#form form {
+  overflow: hidden;
+  margin: auto;
+  max-width: 1200px;
+  border-radius: 30px;
+}
+#form form > div {
+  padding: 10px 20px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  color: #0a6a9c;
+}
+#form form > div > hr {
+  width: 100%;
+  height: 2px;
+  background-color: #0a6a9c;
+}
+#form form > div button {
+  padding: 15px 40px;
+  background-color: #0a6a9c;
+  color: #fff;
+  border-radius: 20px;
+  border: 0;
+  text-align: center;
+  margin-top: 20px;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+  align-self: flex-end;
+}
+#form form > div > div {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: -moz-fit-content;
+  width: fit-content;
+  gap: 10px;
+  width: 100%;
+}
+#form form > div > div label {
+  position: absolute;
+  opacity: 0.6;
+  font-size: 1.25rem;
+  left: 1rem;
+  pointer-events: none;
+  bottom: 0;
+  display: inline-block;
+  transition: 0.5s ease-in-out;
+}
+#form form > div > div paragraph {
+  font-size: 1.125rem;
+  margin-block: 10px;
+}
+#form form > div > div textarea {
+  max-width: 100%;
+  max-height: 200px;
+  min-width: 100px;
+  min-height: 40px;
+}
+#form form > div > div textarea:focus {
+  outline: none;
+}
+#form form > div > div p#max {
+  top: 59px;
+  position: absolute;
+  right: 10px;
+  margin: 0;
+  color: red;
+}
+#form form > div > div input {
+  width: 100%;
+  margin-top: 50px;
+  transition: 0.2s ease-in;
+  height: 30px;
+  border: none;
+}
+#form form > div > div input:focus {
+  outline: none;
+}
+#form form > div > div input:focus + label {
+  bottom: 50%;
+  font-size: 1.125rem;
+  transform: translateY(0);
+  left: 0;
+  opacity: 1;
+}
+#form form > div > div input:hover + label, #form form > div > div input:valid + label {
+  bottom: 50%;
+  font-size: 1.125rem;
+  transform: translateY(0);
+  left: 0;
+  opacity: 1;
+}
+#form form > img {
+  width: 100%;
+}/*# sourceMappingURL=main.css.map */

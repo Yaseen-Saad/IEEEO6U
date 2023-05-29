@@ -1,0 +1,142 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IEEE O6U</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../../assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+  </head>
+  <body>
+    <div id="this-is-loader">
+      <div class="center">
+        <div class="loader">
+          <div class="circle circle-1"></div>
+          <div class="circle circle-2"></div>
+          <div class="circle circle-3"></div>
+          <div class="circle circle-4"></div>
+        </div>
+      </div>
+    </div>
+    <!-- nav -->
+    <section class="cont">
+      <nav>
+        <img src="../../assets/images/logo.png" alt="" />
+        <div class="toggler"><span></span><span></span><span></span></div>
+
+        <ul>
+          <li><a href="../../">home</a></li>
+          <li><a href="../about/">about us</a></li>
+          <li>
+            <a id="NavID">
+              activities <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <div id="activities">
+              <p><a href="../events/">Events</a></p>
+              <p><a href="../workshops/">workshops</a></p>
+              <p><a href="./">Projects</a></p>
+            </div>
+          </li>
+          <li><a href="../content/">content</a></li>
+          <li class="active"><a href="./">contact us</a></li>
+        </ul>
+      </nav>
+    </section>
+    <section id="land" class="cont">
+      <h2>Let's make something awesome together</h2>
+      <p>
+        drop us a line, or give us a heads up if you're interested in joining us
+      </p>
+      <!-- <div id="image"> -->
+      <div class="overlay"></div>
+      <!-- <img id="img" src="../../assets/images/313408184_484656983698243_870673337600810014_n.jpg" alt="" /> -->
+      <div id="img"></div>
+      <!-- </div> -->
+    </section>
+    <section id="form">
+      <p>get in touch</p>
+      <form>
+        <div>
+          <div>
+            <input required id="first" type="text" />
+            <label for="first">First name</label>
+          </div>
+          <hr />
+          <div>
+            <input required id="last" type="text" />
+            <label for="last">last name</label>
+          </div>
+          <hr />
+          <div>
+            <input required type="text" id="email" />
+            <label for="email">Email</label>
+          </div>
+          <hr />
+          <div>
+            <paragraph for="message">message</paragraph>
+            <textarea
+              required
+              id="message"
+              placeholder="please enter a message with at least 10 words and max 200 words"
+            ></textarea>
+            <p id="max">0</p>
+          </div>
+          <button>reach us</button>
+        </div>
+      </form>
+    </section>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.0/anime.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script>
+      const message = document.querySelector("textarea#message"),
+        email = document.querySelector("#email"),
+        max = document.querySelector("#max"),
+        form = document.querySelector("#form form"),
+        maxWords = 200;
+      minWords = 10;
+      document.querySelector("paragraph[for=message]").onclick = () =>
+        message.focus();
+
+      message.addEventListener("keydown", function (e) {
+        const l = this.value.split(/\w+/).length - 1;
+        max.textContent = l;
+        max.style.color = "#0a6a9c";
+        if (l > maxWords || l < minWords) {
+          max.style.color = "red";
+        }
+      });
+      form.onsubmit = function (e) {
+        e.preventDefault();
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value)) {
+          console.log("valid");
+          if (message.value.split(" ").length >= maxWords) {
+            giveAlert(
+              "You exceeded the maximum number of words, please brief your message"
+            );
+          } else {
+            if (message.value.split(" ").length <= minWords) {
+              giveAlert("please enter a valid message");
+            } else {
+              console.log('dd \n',message.value.split(" ").length);
+            }
+          }
+        } else {
+          giveAlert("please enter a valid email");
+        }
+      };
+      email;
+    </script>
+  </body>
+</html>

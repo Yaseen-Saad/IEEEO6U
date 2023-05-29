@@ -443,6 +443,9 @@ if (doc) {
                 "your data has been added successfully, see you soon",
                 "#2ecc71"
               );
+              setTimeout(() => {
+                location.reload();
+              }, 3000);
             }
           });
       });

@@ -81,7 +81,6 @@ async function authorized() {
 }
 
 firebase.auth().onAuthStateChanged(function (user) {
-  console.log(user);
   if (user) {
     authorized();
   }
@@ -112,7 +111,7 @@ submit.addEventListener("click", (e) => {
       });
     })
     .catch((error) => {
-      console.log(error.message);
+      giveAlert(error.message,'#e92929');
     });
 
   // const expiresIn = 1800; // 30 minutes in seconds

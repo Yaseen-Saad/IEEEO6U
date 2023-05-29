@@ -2,6 +2,7 @@
   let events = 0,
     upcomingEvents = 0;
   const collection = "events";
+  // Promise.all()
   await db
     .collection(collection)
     .where("neededData", "==", [])
@@ -201,3 +202,32 @@
   toggleLoader("this-is-loader");
   pauseAnimation();
 })();
+$(".committees").owlCarousel({
+  items: 3,
+  autoplay: true,
+  autoplayTimeout: 5000,
+  nav: true,
+  dots: false,
+  margin: 20,
+  autoplayHoverPause: true,
+  mouseDrag: true,
+  navText: [
+    '<i class="fa-solid fa-chevron-left"></i>',
+    '<i class="fa-solid fa-chevron-right"></i>',
+  ],
+  touchDrag: true,
+  responsive: {
+    0: {
+      items: 1,
+    },
+    400: {
+      items: 2,
+    },
+    600: {
+      items: 3,
+    },
+    1000: {
+      items: 5,
+    },
+  },
+});

@@ -4,29 +4,29 @@ const eventSec = document.querySelector("#events #event");
 if (doc) {
   (async () => {
     await db
-      .collection("events")
-      .doc(doc)
-      .get()
-      .then((doc) => {
-        const event = doc.data();
-        const eventImage = document.createElement("img");
-        eventImage.src = event.eventImage;
-
-        const eventTitle = document.createElement("h2");
-        eventTitle.textContent = event.eventName;
-        eventTitle.id = "eventTitle";
-        const eventDescription = document.createElement("p");
-        eventDescription.innerHTML = event.eventDescription;
-
-        const eventImages = document.createElement("div");
-        event.eventAdditionalImages.map((image) => {
-          const img = document.createElement("img");
-          img.src = image;
-          eventImages.append(img);
-        });
-        eventSec.append(eventImage, eventTitle, eventDescription, eventImages);
+    .collection("events")
+    .doc(doc)
+    .get()
+    .then((doc) => {
+      const event = doc.data();
+      const eventImage = document.createElement("img");
+      eventImage.src = event.eventImage;
+      
+      const eventTitle = document.createElement("h2");
+      eventTitle.textContent = event.eventName;
+      eventTitle.id = "eventTitle";
+      const eventDescription = document.createElement("p");
+      eventDescription.innerHTML = event.eventDescription;
+      
+      const eventImages = document.createElement("div");
+      event.eventAdditionalImages.map((image) => {
+        const img = document.createElement("img");
+        img.src = image;
+        eventImages.append(img);
       });
+      eventSec.append(eventImage, eventTitle, eventDescription, eventImages);
+    });
     toggleLoader("this-is-loader");
-pauseAnimation();
+    pauseAnimation();
   })();
 }

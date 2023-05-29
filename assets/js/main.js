@@ -51,7 +51,7 @@ function limitWords(str, maxChars) {
   return str;
 }
 
-function giveAlert(alert, color, from, clicky) {
+function giveAlert(alert, color, from, clicky, yesNo) {
   return new Promise((resolve, reject) => {
     let body = document.createElement("div"),
       text = document.createElement("p"),
@@ -72,6 +72,9 @@ function giveAlert(alert, color, from, clicky) {
       overlay.addEventListener("click", function () {
         body.remove();
         overlay.remove();
+        if (yesNo) {
+          reject()
+        }
         resolve();
       });
       response.addEventListener("click", function () {
@@ -80,7 +83,25 @@ function giveAlert(alert, color, from, clicky) {
         resolve();
       });
     }
-    body.append(admin, text, response);
+
+    body.append(admin, text);
+    if (yesNo) {
+      const no = document.createElement("button");
+      no.innerText = "No, Don't delete";
+      no.style.cssText = `width:120px;background-color:#2ecc71;padding:5px 10px;cursor:pointer;border:0;align-self:end;border-radius:10px;color:#fff;`;
+      no.addEventListener("click", function () {
+        body.remove();
+        overlay.remove();
+        reject();
+      });
+      const res = document.createElement("div");
+      response.textContent = 'Yes delete';
+      res.append(no, response);
+      res.style.cssText = 'display:flex;justify-content:flex-end;gap:10px;width:100%;'
+      body.append(res);
+    }else{
+      body.append(response);
+    }
     document.body.append(body, overlay);
   });
 }
@@ -193,3 +214,12 @@ firebase.auth().onAuthStateChanged((user) => {
       });
   }
 });
+
+
+const navToggler = document.querySelector('.toggler');
+// console.log(navToggler)
+
+navToggler.addEventListener('click', () =>{
+  navToggler.nextElementSibling.classList.toggle('active');
+  navToggler.classList.toggle('active');
+})

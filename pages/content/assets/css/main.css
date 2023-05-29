@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;500;600;700&display=swap");
+nav {
+  border-radius: 20px;
+  padding-inline: 30px;
+}
+nav li a,
+nav li div {
+  color: #000;
+}
+nav li div {
+  background-color: #fff !important;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.events-sec #Heading {
+  width: 30%;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 320px;
+  min-width: 200px;
+}
+.events-sec svg {
+  fill: #0a6a9c;
+  animation: rotate 4s linear infinite;
+  width: 100%;
+}
+.events-sec svg,
+.events-sec p, .events-sec h2 {
+  color: #fff;
+  text-align: center;
+  position: relative;
+  z-index: 40;
+}
+.events-sec .overlaiers {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  z-index: -3;
+  height: 100vh;
+}
+.events-sec .overlaiers#img {
+  position: fixed;
+  z-index: -2;
+  background-image: url(../../../../assets/images/313408184_484656983698243_870673337600810014_n.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding: 0 !important;
+}
+.events-sec .overlaiers.overlay {
+  width: 100vw;
+  z-index: -1;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.4431372549);
+}/*# sourceMappingURL=main.css.map */
