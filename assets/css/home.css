@@ -5,6 +5,8 @@ body nav {
 }
 body .owl-carousel.landing {
   position: relative;
+  max-width: 1200px;
+  margin: auto;
 }
 body .owl-carousel.landing .item {
   width: 100%;
@@ -51,6 +53,16 @@ body .owl-carousel.landing .item div > p:first-of-type {
   body .owl-carousel.landing .item div p {
     margin: 0;
   }
+}
+body .committees article a {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  padding: 5px;
+}
+body .committees article a ul {
+  margin: 0 0 0 20px;
+  padding: 0;
 }
 body section#Heading.meet-us > article.owl-carousel .owl-stage {
   margin: auto;

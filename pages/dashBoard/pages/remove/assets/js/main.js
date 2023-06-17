@@ -5,13 +5,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     document.querySelector(".remove-options").addEventListener("click", (e) => {
       if (!e.target.innerText.match(/\n/)) {
         cont.innerHTML = "";
-        const collection = e.target.getAttribute("collection");
-        giveAlert(
-          "ONCE YOU CLICK THE DELETE BUTTON THE OBJECT WILL BE DELETED PERMANENTLY AND THERE IS NO UNDO !!",
-          "#ff5733",
-          "the DEVELOPER says"
-        );
-
+        const collection = e.target.getAttribute("collection").trim();
         db.collection(collection)
           .get()
           .then((snap) => {
@@ -44,51 +38,51 @@ firebase.auth().onAuthStateChanged(function (user) {
               deleteButton.textContent = "DELETE !";
               deleteButton.addEventListener("click", function (e) {
                 const object = this.parentNode;
-                db.collection(object.getAttribute("COLLECTION"))
-                  .doc(object.getAttribute("DOCID"))
-                  .delete()
-                  .then(() => {
-                    giveAlert("Object successfully deleted!");
-                    object.remove();
-                  })
-                  .catch((error) => {
-                    console.error("Error deleting document: ", error);
-                  });
-
-                if (object.getAttribute("regis")) {
-                  (async () => {
-                    console.log(object.getAttribute("regis"));
-                    console.log(object.getAttribute("DOCID"));
-                    console.log(object.getAttribute("COLLECTION"));
-                    await db
-                      .collection("registered-events")
-                      .where("doc", "==", object.getAttribute("DOCID"))
-                      .where(
-                        "collection",
-                        "==",
-                        object.getAttribute("COLLECTION")
-                      )
-                      .get()
-                      .then((snap) => {
-                        snap.forEach((doc) => {
-                          console.log(doc.data());
-                          doc.ref.delete();
+                giveAlert(
+                  "are you sure you want to delete this document?",
+                  "#e92929",
+                  "",
+                  "",
+                  true
+                ).then(() => {
+                  db.collection(object.getAttribute("COLLECTION"))
+                    .doc(object.getAttribute("DOCID"))
+                    .delete();
+                  if (object.getAttribute("regis")) {
+                    (async () => {
+                      await db
+                        .collection("registered-events")
+                        .where("doc", "==", object.getAttribute("DOCID"))
+                        .where(
+                          "collection",
+                          "==",
+                          object.getAttribute("COLLECTION")
+                        )
+                        .get()
+                        .then((snap) => {
+                          snap.forEach((doc) => {
+                            console.log(doc.data());
+                            doc.ref.delete();
+                          });
+                        })
+                        .catch((error) => {
+                          console.error("Error deleting document: ", error);
                         });
-                      })
-                      .catch((error) => {
-                        console.error("Error deleting document: ", error);
-                      });
-                  })();
-                }
-                giveAlert("Object successfully deleted!");
-                object.remove();
-
+                    })();
+                  }
+                  giveAlert("Object successfully deleted!");
+                  object.remove();
+                });
                 //code here ...
               });
               const article = document.createElement("article");
               article.setAttribute("DOCID", doc.id);
               article.setAttribute("COLLECTION", collection);
-              article.setAttribute("regis", element.neededData.length);
+              if (
+                !["officers", "best-members", "partners"].includes(collection)
+              ) {
+                article.setAttribute("regis", element.neededData.length);
+              }
               article.append(image, title, desc, deleteButton);
 
               cont.append(article);

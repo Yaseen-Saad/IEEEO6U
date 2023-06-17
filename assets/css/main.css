@@ -160,6 +160,68 @@ body .cont nav ul li #activities.active {
     transform: translate(0);
   }
 }
+body footer {
+  color: #fff;
+  width: 100%;
+}
+body footer a {
+  color: inherit;
+}
+body footer article {
+  background-color: #2b2933;
+  text-align: center;
+  padding: 20px;
+}
+body footer article img {
+  width: 300px;
+  max-width: 40vw;
+}
+body footer article .cont {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+body footer article .cont div {
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  max-width: 300px;
+  margin: 20px;
+}
+body footer article .links {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+body footer .foot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #333333;
+}
+body footer .foot p {
+  margin: 3px;
+}
+body footer .foot p a {
+  color: red;
+  text-decoration: none;
+}
+body footer .foot p a:hover {
+  font-size: 1.3rem;
+  color: #a0fbff;
+  text-decoration: underline;
+}
+body footer .foot div {
+  gap: 10px;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body footer .foot div img,
+body footer .foot div svg {
+  width: 20px;
+}
 
 .owl-dots {
   text-align: center;
