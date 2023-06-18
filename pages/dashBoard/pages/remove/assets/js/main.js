@@ -9,6 +9,9 @@ firebase.auth().onAuthStateChanged(function (user) {
         db.collection(collection)
           .get()
           .then((snap) => {
+            if (snap.empty) {
+              cont.innerHTML = `<quote>No ${collection} To Show</quote>`;
+            }
             snap.forEach((doc) => {
               const element = doc.data();
               const image = document.createElement("img");
@@ -61,7 +64,6 @@ firebase.auth().onAuthStateChanged(function (user) {
                         .get()
                         .then((snap) => {
                           snap.forEach((doc) => {
-                            console.log(doc.data());
                             doc.ref.delete();
                           });
                         })

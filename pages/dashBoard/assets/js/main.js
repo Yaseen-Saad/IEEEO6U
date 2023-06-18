@@ -111,54 +111,6 @@ submit.addEventListener("click", (e) => {
       });
     })
     .catch((error) => {
-      giveAlert(error.message,'#e92929');
+      giveAlert(error.message, "#e92929");
     });
-
-  // const expiresIn = 1800; // 30 minutes in seconds
-  // firebase
-  //   .auth()
-  //   .signInWithEmailAndPassword(email, password)
-  //   .then((userCredential) => {
-  //     const user = userCredential.user;
-  //     user.getIdTokenResult().then((idTokenResult) => {
-  //       const authTime = idTokenResult.authTime;
-  //       const expirationTime = authTime + expiresIn * 1000;
-  //       const rememberMe = 0; // set to true to keep user signed in after browser is closed
-  //       firebase
-  //         .auth()
-  //         .setPersistence(
-  //           rememberMe
-  //             ? firebase.auth.Auth.Persistence.LOCAL
-  //             : firebase.auth.Auth.Persistence.SESSION
-  //         )
-  //         .then(() => {
-  //           return firebase.auth().signInWithEmailAndPassword(email, password);
-  //         })
-  //         .then(() => {
-  //           // User is signed in for the next 30 minutes
-  //         })
-  //         .catch((error) => {
-  //           console.log(error.message);
-  //         });
-  //     });
-  //   })
-  //   .catch((error) => {
-  //     console.log(error.message);
-  //   });
-
-  /*   firebase
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Signed in
-      loc
-      authorized();
-      calculateViews();
-      return userCredential.user.getIdToken();
-    })
-    .catch((error) => {
-      giveAlert(error.message, "#ff5733");
-    }); */
 });
-
-// Get the currently signed-in user

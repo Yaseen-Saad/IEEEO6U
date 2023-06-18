@@ -217,7 +217,6 @@ firebase.auth().onAuthStateChanged((user) => {
 
 
 const navToggler = document.querySelector('.toggler');
-// console.log(navToggler)
 
 navToggler.addEventListener('click', () =>{
   navToggler.nextElementSibling.classList.toggle('active');

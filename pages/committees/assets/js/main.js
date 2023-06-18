@@ -26,7 +26,6 @@ iframe.src =
 "https://www.youtube.com/embed/" + Videos[committee].split("v=")[1];
 
 onload = async () => {
-  console.log(committee);
   toggleLoader("this-is-loader");
   pauseAnimation();
 };

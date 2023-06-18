@@ -5,8 +5,7 @@ body nav {
 }
 body .owl-carousel.landing {
   position: relative;
-  max-width: 1200px;
-  margin: auto;
+  padding: 0;
 }
 body .owl-carousel.landing .item {
   width: 100%;

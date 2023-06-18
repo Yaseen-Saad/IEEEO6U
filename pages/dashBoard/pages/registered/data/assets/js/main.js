@@ -39,7 +39,6 @@ firebase.auth().onAuthStateChanged(function (user) {
               let id = 1;
               snap.forEach((doc, i) => {
                 const element = doc.data();
-                console.log(element);
                 let keys = Object.keys(element);
                 if (id == 1) {
                   keys = keys.filter(
@@ -126,7 +125,6 @@ firebase.auth().onAuthStateChanged(function (user) {
                   let id = 1;
                   snap.forEach((doc, i) => {
                     const element = doc.data();
-                    console.log(element);
                     let keys = Object.keys(element);
                     if (id == 1) {
                       keys = keys.filter(
