@@ -1,8 +1,8 @@
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    const cont = document.querySelector(".remove-section");
+    const cont = document.querySelector(".data-section");
 
-    document.querySelector(".remove-options").addEventListener("click", (e) => {
+    document.querySelector(".options").addEventListener("click", (e) => {
       if (!e.target.innerText.match(/\n/)) {
         cont.innerHTML = "";
         const collection = e.target.getAttribute("collection").trim();

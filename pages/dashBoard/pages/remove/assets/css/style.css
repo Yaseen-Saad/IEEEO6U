@@ -1,1 +1,21 @@
-/*# sourceMappingURL=style.css.map */
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;500;600;700&display=swap");
+.deleteButton {
+  background-color: #ff5733;
+  border: 0;
+  padding: 5px;
+  border-radius: 20px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.deleteButton.normal-button {
+  background-color: #2ecc71;
+  text-decoration: none;
+}
+.deleteButton.download-button {
+  border-radius: 4px;
+  margin-block: 20px;
+}/*# sourceMappingURL=style.css.map */
