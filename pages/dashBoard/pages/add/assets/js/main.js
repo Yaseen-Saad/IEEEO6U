@@ -271,8 +271,8 @@ firebase.auth().onAuthStateChanged(function (user) {
 
       // Convert the Markdown to HTML using markdown-it
 
-      eventDesc;
       const md = window.markdownit();
+      console.log();
 
       const HTMLeventDesc = md.render(eventDesc);
 

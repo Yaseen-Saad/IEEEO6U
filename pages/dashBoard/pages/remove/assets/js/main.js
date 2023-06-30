@@ -47,10 +47,30 @@ firebase.auth().onAuthStateChanged(function (user) {
                   "",
                   "",
                   true
-                ).then(() => {
-                  db.collection(object.getAttribute("COLLECTION"))
+                ).then(async () => {
+                  await db
+                    .collection(object.getAttribute("COLLECTION"))
                     .doc(object.getAttribute("DOCID"))
                     .delete();
+                  const storage = app.storage();
+                  const Ref = storage.ref(
+                    `${object.getAttribute("COLLECTION")}/${
+                      object.children[1].textContent
+                    }`
+                  );
+                  const files = await Ref.listAll();
+                  console.log(files);
+
+                  for (const file of files.items) {
+                    console.log(file);
+                    file.delete()
+                      .then(() => {
+                        console.log("Image Deleted Successfully");
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                  }
                   if (object.getAttribute("regis")) {
                     (async () => {
                       await db

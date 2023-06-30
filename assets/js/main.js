@@ -9,8 +9,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app  =firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+
 if (!/dashboard/gi.test(location.href)) {
   const navList = document.querySelector("#NavID");
   const activities = document.querySelector("#activities");
